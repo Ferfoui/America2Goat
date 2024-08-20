@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name" translatable="false">America2Goat</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Settings</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="length_input">length</string>
+    <string name="length_output" translatable="false">0</string>
+    <string name="unit">unit</string>
+    <string name="meter_abbreviation" translatable="false">m</string>
+    <string name="centimeter_abbreviation" translatable="false">cm</string>
+    <string name="inch_abbreviation" translatable="false">in</string>
+    <string name="foot_abbreviation" translatable="false">ft</string>
+    <string name="meter">meter</string>
+    <string name="centimeter">centimeter</string>
+    <string name="inch">inch</string>
+    <string name="foot">foot</string>
+    <string name="unit_to_unit">unit to unit</string>
+    <string name="conversion_word">to</string>
+</resources>
