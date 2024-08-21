@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.ferfoui.america2goat.databinding.FragmentDashboardBinding;
+import fr.ferfoui.america2goat.injection.ViewModelFactory;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
 public class DashboardFragment extends Fragment {
@@ -23,7 +24,7 @@ public class DashboardFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(DashboardViewModel.class);
     }
 
     @Override

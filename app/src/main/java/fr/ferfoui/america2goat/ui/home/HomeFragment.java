@@ -24,8 +24,8 @@ import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
 public class HomeFragment extends Fragment {
 
-    int inputSpinnerPosition = 1;
-    int outputSpinnerPosition = 2;
+    int inputSpinnerPosition;
+    int outputSpinnerPosition;
     private HomeViewModel viewModel;
     private FragmentHomeBinding binding;
 
@@ -120,6 +120,9 @@ public class HomeFragment extends Fragment {
     private void configureSpinners() {
         Spinner inputUnitSpinner = binding.inputUnitSpinner;
         Spinner outputUnitSpinner = binding.outputUnitSpinner;
+
+        inputSpinnerPosition = viewModel.getInputUnit().ordinal();
+        outputSpinnerPosition = viewModel.getOutputUnit().ordinal();
 
         UnitSpinnersConfiguration.configureSpinners(requireContext(), inputUnitSpinner,
                 outputUnitSpinner, inputSpinnerPosition, outputSpinnerPosition);

@@ -50,6 +50,14 @@ public class HomeViewModel extends ViewModel {
         return outputUnitOrdinal;
     }
 
+    public Unit getInputUnit() {
+        return converterRepository.getInputUnit();
+    }
+
+    public Unit getOutputUnit() {
+        return converterRepository.getOutputUnit();
+    }
+
     public void setInputUnit(int inputUnitOrdinal) {
         int oldInputUnitOrdinal = converterRepository.getInputUnit().ordinal();
 

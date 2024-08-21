@@ -12,6 +12,7 @@ import fr.ferfoui.america2goat.data.conversion.Converter;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
 import fr.ferfoui.america2goat.data.settings.AppSettings;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
+import fr.ferfoui.america2goat.ui.dashboard.DashboardViewModel;
 import fr.ferfoui.america2goat.ui.home.HomeViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
@@ -44,6 +45,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(HomeViewModel.class)) {
             return (T) new HomeViewModel(converterRepository, settingsRepository);
+        }
+        if (modelClass.isAssignableFrom(DashboardViewModel.class)) {
+            return (T) new DashboardViewModel(settingsRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
