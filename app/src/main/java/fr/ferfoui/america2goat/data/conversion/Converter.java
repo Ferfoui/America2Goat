@@ -1,5 +1,6 @@
 package fr.ferfoui.america2goat.data.conversion;
 
+import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.unit.Unit;
 
 public class Converter {
@@ -8,7 +9,7 @@ public class Converter {
     private Unit outputUnit;
 
     public Converter() {
-        this(Unit.METER, Unit.INCH);
+        this(Constants.DEFAULT_INPUT_UNIT, Constants.DEFAULT_OUTPUT_UNIT);
     }
 
     public Converter(Unit initialInputUnit, Unit initialOutputUnit) {

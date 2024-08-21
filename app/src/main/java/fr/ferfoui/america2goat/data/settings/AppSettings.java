@@ -1,10 +1,15 @@
 package fr.ferfoui.america2goat.data.settings;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava3.RxDataStore;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
+
+import io.reactivex.Single;
+
 
 public class AppSettings {
 
@@ -22,15 +27,29 @@ public class AppSettings {
         return instance;
     }
 
-    public void setUnitPreference(int unitPreference) {
-
+    public synchronized <T> void setData(Preferences.Key<T> storageKey, T value) {
+        dataStore.updateDataAsync(prefsIn -> {
+            Log.d("AppSettings", "settingData: " + storageKey + " " + value);
+            MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
+            mutablePreferences.set(storageKey, value);
+            Log.d("AppSettings", "data has been set: " + storageKey + " " + value);
+            return Single.just(mutablePreferences);
+        });
     }
 
-    public int getInputUnitPreference() {
-        return 1;
+    public synchronized <T> T getData(Preferences.Key<T> storageKey) {
+        Single<T> value = dataStore.data().firstOrError().map(prefs -> prefs.get(storageKey));
+        try {
+            return value.blockingGet();
+        } catch (Exception e) {
+            Log.e("AppSettings", "getData: ", e);
+            throw new RuntimeException(e);
+        }
     }
 
-    public int getOutputUnitPreference() {
-        return 2;
+    public synchronized boolean isDataAvailable(Preferences.Key<?> storageKey) {
+        Log.d("AppSettings", "checking if isDataAvailable: " + storageKey);
+        return dataStore.data().map(prefs -> prefs.contains(storageKey)).blockingFirst();
     }
+
 }

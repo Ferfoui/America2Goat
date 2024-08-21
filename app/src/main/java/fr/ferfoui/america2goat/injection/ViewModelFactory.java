@@ -1,6 +1,7 @@
 package fr.ferfoui.america2goat.injection;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
