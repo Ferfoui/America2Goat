@@ -26,12 +26,13 @@
                     android:textAlignment="center"
                     android:text="@string/input_unit_preference"
                     android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+                    android:layout_marginBottom="@dimen/preferences_bottom_margin"/>
 
             <Spinner
                     android:id="@+id/input_unit_preference_spinner"
                     android:layout_width="@dimen/preferences_spinner_width"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:padding="20dp" />
 
         </LinearLayout>
@@ -52,11 +53,11 @@
                     android:textSize="18sp"
                     android:layout_marginBottom="@dimen/preferences_bottom_margin" />
 
-
             <Spinner
                     android:id="@+id/output_unit_preference_spinner"
                     android:layout_width="@dimen/preferences_spinner_width"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:padding="20dp" />
 
         </LinearLayout>
