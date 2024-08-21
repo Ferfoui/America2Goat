@@ -5,22 +5,30 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
+import fr.ferfoui.america2goat.data.settings.SettingsRepository;
 import fr.ferfoui.america2goat.unit.Unit;
 
 public class HomeViewModel extends ViewModel {
 
     private final ConverterRepository converterRepository;
-
-    private double currentInputValue;
+    private final SettingsRepository settingsRepository;
     private final MutableLiveData<String> result;
+    private final MutableLiveData<Integer> inputUnitOrdinal;
+    private final MutableLiveData<Integer> outputUnitOrdinal;
+    private double currentInputValue;
 
+    public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
+        this.converterRepository = converterRepository;
+        this.settingsRepository = settingsRepository;
 
-    public HomeViewModel() {
-        converterRepository = new ConverterRepository();
-
+        inputUnitOrdinal = new MutableLiveData<>();
+        outputUnitOrdinal = new MutableLiveData<>();
         result = new MutableLiveData<>();
+
         currentInputValue = 0d;
-        convert(currentInputValue);
+
+        setInputUnit(settingsRepository.getInputUnitPreference());
+        setOutputUnit(settingsRepository.getOutputUnitPreference());
     }
 
     public void convert(double value) {
@@ -28,25 +36,41 @@ public class HomeViewModel extends ViewModel {
         result.setValue(String.valueOf(converterRepository.convert(value)));
     }
 
-    public void setInputUnit(Unit inputUnit) {
-        converterRepository.setInputUnit(inputUnit);
-        convert(currentInputValue);
-    }
-
-    public void setOutputUnit(Unit outputUnit) {
-        converterRepository.setOutputUnit(outputUnit);
-        convert(currentInputValue);
-    }
-
     public LiveData<String> getResult() {
         return result;
     }
 
-    public Unit getInputUnit() {
-        return converterRepository.getInputUnit();
+    public LiveData<Integer> getInputUnitOrdinal() {
+        return inputUnitOrdinal;
     }
 
-    public Unit getOutputUnit() {
-        return converterRepository.getOutputUnit();
+    public LiveData<Integer> getOutputUnitOrdinal() {
+        return outputUnitOrdinal;
+    }
+
+    public void setInputUnit(int inputUnitOrdinal) {
+        int oldInputUnitOrdinal = converterRepository.getInputUnit().ordinal();
+
+        converterRepository.setInputUnit(Unit.values()[inputUnitOrdinal]);
+        this.inputUnitOrdinal.setValue(inputUnitOrdinal);
+
+        if (inputUnitOrdinal == converterRepository.getOutputUnit().ordinal()) {
+            setOutputUnit(oldInputUnitOrdinal);
+        } else {
+            convert(currentInputValue);
+        }
+    }
+
+    public void setOutputUnit(int outputUnitOrdinal) {
+        int oldOutputUnitOrdinal = converterRepository.getOutputUnit().ordinal();
+
+        converterRepository.setOutputUnit(Unit.values()[outputUnitOrdinal]);
+        this.outputUnitOrdinal.setValue(outputUnitOrdinal);
+
+        if (outputUnitOrdinal == converterRepository.getInputUnit().ordinal()) {
+            setInputUnit(oldOutputUnitOrdinal);
+        } else {
+            convert(currentInputValue);
+        }
     }
 }

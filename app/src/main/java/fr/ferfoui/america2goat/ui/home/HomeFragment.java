@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import fr.ferfoui.america2goat.databinding.FragmentHomeBinding;
+import fr.ferfoui.america2goat.injection.ViewModelFactory;
 import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(HomeViewModel.class);
     }
 
     @Override
@@ -50,6 +51,16 @@ public class HomeFragment extends Fragment {
 
         configureInputEditText();
         configureSpinners();
+
+        viewModel.getInputUnitOrdinal().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
+            if (binding.inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
+                binding.inputUnitSpinner.setSelection(inputUnitOrdinal);
+        });
+
+        viewModel.getOutputUnitOrdinal().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
+            if (binding.outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
+                binding.outputUnitSpinner.setSelection(outputUnitOrdinal);
+        });
     }
 
     @Override
@@ -121,37 +132,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Unit[] units = Unit.values();
-                int oldPosition;
-                try {
-                    Unit selectedUnit = units[position];
+                if (Unit.values().length <= position) {
+                    throw new IllegalStateException("Unexpected value: " + position);
+                }
 
-                    if (isInput) {
-                        oldPosition = inputSpinnerPosition;
-                        viewModel.setInputUnit(selectedUnit);
-                        inputSpinnerPosition = position;
-                    } else {
-                        oldPosition = outputSpinnerPosition;
-                        viewModel.setOutputUnit(selectedUnit);
-                        outputSpinnerPosition = position;
-                    }
-
-                    changeUnitIfSameSelected((Spinner) parent, oldPosition);
-
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IllegalStateException("Unexpected value: " + position, e);
+                if (isInput) {
+                    viewModel.setInputUnit(position);
+                    inputSpinnerPosition = position;
+                } else {
+                    viewModel.setOutputUnit(position);
+                    outputSpinnerPosition = position;
                 }
 
                 changeUnitText();
-            }
-
-            public void changeUnitIfSameSelected(Spinner currentSpinner, int oldPosition) {
-
-                Spinner otherSpinner = isInput ? binding.outputUnitSpinner : binding.inputUnitSpinner;
-
-                if (currentSpinner.getSelectedItemPosition() == otherSpinner.getSelectedItemPosition()) {
-                    otherSpinner.setSelection(oldPosition);
-                }
             }
 
             @Override

@@ -6,27 +6,27 @@ public class ConverterRepository {
 
     private final Converter converter;
 
-    public ConverterRepository() {
-        converter = new Converter();
+    public ConverterRepository(Converter converter) {
+        this.converter = converter;
     }
 
     public double convert(double value) {
         return converter.convert(value);
     }
 
-    public void setInputUnit(Unit inputUnit) {
-        converter.setInputUnit(inputUnit);
-    }
-
-    public void setOutputUnit(Unit outputUnit) {
-        converter.setOutputUnit(outputUnit);
-    }
-
     public Unit getInputUnit() {
         return converter.getInputUnit();
     }
 
+    public void setInputUnit(Unit inputUnit) {
+        converter.setInputUnit(inputUnit);
+    }
+
     public Unit getOutputUnit() {
         return converter.getOutputUnit();
+    }
+
+    public void setOutputUnit(Unit outputUnit) {
+        converter.setOutputUnit(outputUnit);
     }
 }
