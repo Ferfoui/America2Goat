@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -17,20 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import fr.ferfoui.america2goat.data.conversion.Unit;
 import fr.ferfoui.america2goat.databinding.FragmentHomeBinding;
+import fr.ferfoui.america2goat.unit.Unit;
+import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel viewModel;
-    private FragmentHomeBinding binding;
-
     int inputSpinnerPosition = 1;
     int outputSpinnerPosition = 2;
+    private HomeViewModel viewModel;
+    private FragmentHomeBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,20 +109,8 @@ public class HomeFragment extends Fragment {
         Spinner inputUnitSpinner = binding.inputUnitSpinner;
         Spinner outputUnitSpinner = binding.outputUnitSpinner;
 
-        // Create a list of units abbreviation to display in the spinners using the resource ids
-        List<CharSequence> units = Arrays.stream(Unit.values())
-                .map(Unit::getResourceAbbreviationId)
-                .map(requireContext()::getString)
-                .collect(Collectors.toList());
-
-        // The spinners need an ArrayAdapter to display items
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, units);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        inputUnitSpinner.setAdapter(adapter);
-        inputUnitSpinner.setSelection(inputSpinnerPosition);
-        outputUnitSpinner.setAdapter(adapter);
-        outputUnitSpinner.setSelection(outputSpinnerPosition);
+        UnitSpinnersConfiguration.configureSpinners(requireContext(), inputUnitSpinner,
+                outputUnitSpinner, inputSpinnerPosition, outputSpinnerPosition);
 
         inputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(true));
         outputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(false));

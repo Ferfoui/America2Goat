@@ -1,5 +1,7 @@
 package fr.ferfoui.america2goat.data.conversion;
 
+import fr.ferfoui.america2goat.unit.Unit;
+
 public class Converter {
 
     private Unit inputUnit;

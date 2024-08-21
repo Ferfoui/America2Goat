@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
-import fr.ferfoui.america2goat.data.conversion.Unit;
+import fr.ferfoui.america2goat.unit.Unit;
 
 public class HomeViewModel extends ViewModel {
 

@@ -1,4 +1,4 @@
-package fr.ferfoui.america2goat.data.conversion;
+package fr.ferfoui.america2goat.unit;
 
 import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.Constants;
