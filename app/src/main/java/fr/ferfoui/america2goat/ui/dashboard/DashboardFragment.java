@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import fr.ferfoui.america2goat.databinding.FragmentDashboardBinding;
 import fr.ferfoui.america2goat.injection.ViewModelFactory;
+import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
 public class DashboardFragment extends Fragment {
@@ -40,17 +42,52 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
         Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
 
         UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner,
-                outputUnitSpinner, 1, 2);
+                outputUnitSpinner, viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference());
+
+        inputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(true));
+        outputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(false));
+
+        viewModel.getInputUnitLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
+            if (inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
+                inputUnitSpinner.setSelection(inputUnitOrdinal);
+        });
+
+        viewModel.getOutputUnitLiveData().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
+            if (outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
+                outputUnitSpinner.setSelection(outputUnitOrdinal);
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private AdapterView.OnItemSelectedListener createUnitSpinnerListener(boolean isInput) {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (Unit.values().length <= position) {
+                    throw new IllegalStateException("Unexpected value: " + position);
+                }
+
+                if (isInput) {
+                    viewModel.setInputUnitPreference(position);
+                } else {
+                    viewModel.setOutputUnitPreference(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
     }
 }

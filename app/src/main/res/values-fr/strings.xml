@@ -11,6 +11,6 @@
     <string name="foot">pied</string>
     <string name="unit_to_unit">unité vers unité</string>
     <string name="conversion_word">vers</string>
-    <string name="input_unit_preference">Préférence pour l\'unité d\'entrée :</string>
-    <string name="output_unit_preference">Préférence pour l\'unité de sortie :</string>
+    <string name="input_unit_preference">Unité d\'entrée par défaut :</string>
+    <string name="output_unit_preference">Unité de sortie par défaut :</string>
 </resources>

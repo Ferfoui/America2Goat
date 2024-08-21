@@ -12,14 +12,6 @@ public class SettingsRepository {
         Log.d("SettingsRepository", "SettingsRepository is created");
     }
 
-    public void setInputUnitPreference(int unitPreferenceOrdinal) {
-        appSettings.setData(StorageKeys.INPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
-    }
-
-    public void setOutputUnitPreference(int unitPreferenceOrdinal) {
-        appSettings.setData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
-    }
-
     public int getInputUnitPreference() {
         Log.d("SettingsRepository", "Checking if input unit preference is available");
 
@@ -34,6 +26,10 @@ public class SettingsRepository {
         return Constants.DEFAULT_INPUT_UNIT.ordinal();
     }
 
+    public void setInputUnitPreference(int unitPreferenceOrdinal) {
+        appSettings.setData(StorageKeys.INPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
+    }
+
     public int getOutputUnitPreference() {
         Log.d("SettingsRepository", "Checking if output unit preference is available");
 
@@ -46,5 +42,9 @@ public class SettingsRepository {
 
         Log.d("SettingsRepository", "Using default output unit preference");
         return Constants.DEFAULT_OUTPUT_UNIT.ordinal();
+    }
+
+    public void setOutputUnitPreference(int unitPreferenceOrdinal) {
+        appSettings.setData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
     }
 }
