@@ -62,6 +62,24 @@
 
         </LinearLayout>
 
+        <LinearLayout
+                android:id="@+id/round_preference_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/preferences_layout_margin">
+
+            <TextView
+                    android:id="@+id/round_preference_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/round_preference"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

@@ -13,4 +13,5 @@
     <string name="conversion_word">vers</string>
     <string name="input_unit_preference">Unité d\'entrée par défaut :</string>
     <string name="output_unit_preference">Unité de sortie par défaut :</string>
+    <string name="round_preference">Préférence pour l\'arrondi :</string>
 </resources>

@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="preferences_layout_margin">50dp</dimen>
+    <dimen name="preferences_layout_margin">40dp</dimen>
     <dimen name="preferences_bottom_margin">20dp</dimen>
     <dimen name="preferences_spinner_width">150sp</dimen>
 </resources>

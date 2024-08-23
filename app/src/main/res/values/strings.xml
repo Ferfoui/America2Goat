@@ -18,4 +18,5 @@
     <string name="conversion_word">to</string>
     <string name="input_unit_preference">Default input unit:</string>
     <string name="output_unit_preference">Default output unit:</string>
+    <string name="round_preference">Preference for rounding:</string>
 </resources>
