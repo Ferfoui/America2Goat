@@ -14,4 +14,5 @@
     <string name="input_unit_preference">Unité d\'entrée par défaut :</string>
     <string name="output_unit_preference">Unité de sortie par défaut :</string>
     <string name="round_preference">Préférence pour l\'arrondi :</string>
+    <string name="swap_units_button_content_description">Échange les unités</string>
 </resources>

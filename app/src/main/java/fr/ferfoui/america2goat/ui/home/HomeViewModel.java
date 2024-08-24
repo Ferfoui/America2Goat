@@ -16,6 +16,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<String> result;
     private final MutableLiveData<Integer> inputUnitOrdinal;
     private final MutableLiveData<Integer> outputUnitOrdinal;
+    private final MutableLiveData<Double> changedInputValue;
     private double currentInputValue;
 
     public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
@@ -24,6 +25,7 @@ public class HomeViewModel extends ViewModel {
         inputUnitOrdinal = new MutableLiveData<>();
         outputUnitOrdinal = new MutableLiveData<>();
         result = new MutableLiveData<>();
+        changedInputValue = new MutableLiveData<>();
 
         currentInputValue = 0d;
 
@@ -42,6 +44,10 @@ public class HomeViewModel extends ViewModel {
         return result;
     }
 
+    public LiveData<Double> getChangedInputValue() {
+        return changedInputValue;
+    }
+
     public LiveData<Integer> getInputUnitOrdinal() {
         return inputUnitOrdinal;
     }
@@ -52,10 +58,6 @@ public class HomeViewModel extends ViewModel {
 
     public Unit getInputUnit() {
         return converterRepository.getInputUnit();
-    }
-
-    public Unit getOutputUnit() {
-        return converterRepository.getOutputUnit();
     }
 
     public void setInputUnit(int inputUnitOrdinal) {
@@ -71,6 +73,10 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    public Unit getOutputUnit() {
+        return converterRepository.getOutputUnit();
+    }
+
     public void setOutputUnit(int outputUnitOrdinal) {
         int oldOutputUnitOrdinal = converterRepository.getOutputUnit().ordinal();
 
@@ -82,5 +88,13 @@ public class HomeViewModel extends ViewModel {
         } else {
             convert(currentInputValue);
         }
+    }
+
+    public void swapUnitsAndValues() {
+
+        currentInputValue = converterRepository.convert(currentInputValue);
+
+        changedInputValue.setValue(currentInputValue);
+        setInputUnit(converterRepository.getOutputUnit().ordinal());
     }
 }

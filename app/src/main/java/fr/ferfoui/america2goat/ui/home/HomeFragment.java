@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment {
         configureInputEditText();
         configureSpinners();
 
+        binding.swapButton.setOnClickListener(v -> viewModel.swapUnitsAndValues());
+
         viewModel.getInputUnitOrdinal().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
             if (binding.inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
                 binding.inputUnitSpinner.setSelection(inputUnitOrdinal);
@@ -60,6 +62,11 @@ public class HomeFragment extends Fragment {
         viewModel.getOutputUnitOrdinal().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
             if (binding.outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
                 binding.outputUnitSpinner.setSelection(outputUnitOrdinal);
+        });
+
+        viewModel.getChangedInputValue().observe(getViewLifecycleOwner(), changedInputValue -> {
+                binding.inputLengthEditText.setText(String.valueOf(changedInputValue));
+                binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
         });
     }
 
