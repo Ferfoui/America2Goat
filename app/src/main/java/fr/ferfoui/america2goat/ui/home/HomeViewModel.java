@@ -13,14 +13,18 @@ import fr.ferfoui.america2goat.unit.Unit;
 public class HomeViewModel extends ViewModel {
 
     private final ConverterRepository converterRepository;
+    private final SettingsRepository settingsRepository;
+
     private final MutableLiveData<String> result;
     private final MutableLiveData<Integer> inputUnitOrdinal;
     private final MutableLiveData<Integer> outputUnitOrdinal;
     private final MutableLiveData<Double> changedInputValue;
+
     private double currentInputValue;
 
     public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
         this.converterRepository = converterRepository;
+        this.settingsRepository = settingsRepository;
 
         inputUnitOrdinal = new MutableLiveData<>();
         outputUnitOrdinal = new MutableLiveData<>();
@@ -37,7 +41,22 @@ public class HomeViewModel extends ViewModel {
 
     public void convert(double value) {
         currentInputValue = value;
-        result.setValue(String.valueOf(converterRepository.convert(value)));
+        setRoundedResult(converterRepository.convert(value));
+    }
+
+    private void setRoundedResult(double resultValue) {
+        result.setValue(String.valueOf(round(resultValue)));
+    }
+
+    private double round(double value) {
+        int roundPreference = settingsRepository.getRoundPreference();
+
+        if (roundPreference > -1) {
+            double multiplier = Math.pow(10, roundPreference);
+            return Math.round(value * multiplier) / multiplier;
+        } else {
+            return value;
+        }
     }
 
     public LiveData<String> getResult() {
@@ -92,7 +111,7 @@ public class HomeViewModel extends ViewModel {
 
     public void swapUnitsAndValues() {
 
-        currentInputValue = converterRepository.convert(currentInputValue);
+        currentInputValue = round(converterRepository.convert(currentInputValue));
 
         changedInputValue.setValue(currentInputValue);
         setInputUnit(converterRepository.getOutputUnit().ordinal());

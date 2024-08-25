@@ -12,7 +12,9 @@ public class DashboardViewModel extends ViewModel {
     private final MutableLiveData<Integer> inputUnitOrdinal;
     private final MutableLiveData<Integer> outputUnitOrdinal;
 
-    public DashboardViewModel(SettingsRepository settingsRepository) {
+    private final int roundSeekBarMax;
+
+    public DashboardViewModel(SettingsRepository settingsRepository, int roundSeekBarMax) {
         this.settingsRepository = settingsRepository;
 
         inputUnitOrdinal = new MutableLiveData<>();
@@ -20,6 +22,8 @@ public class DashboardViewModel extends ViewModel {
 
         inputUnitOrdinal.setValue(settingsRepository.getInputUnitPreference());
         outputUnitOrdinal.setValue(settingsRepository.getOutputUnitPreference());
+
+        this.roundSeekBarMax = roundSeekBarMax;
     }
 
     public MutableLiveData<Integer> getInputUnitLiveData() {
@@ -60,4 +64,21 @@ public class DashboardViewModel extends ViewModel {
         }
     }
 
+    public void setRoundPreference(int progress) {
+        if (progress >= roundSeekBarMax) {
+            progress = -1;
+        }
+
+        settingsRepository.setRoundPreference(progress);
+    }
+
+    public int getSeekBarPosition() {
+        int roundPreference = settingsRepository.getRoundPreference();
+
+        if (roundPreference <= -1) {
+            return roundSeekBarMax;
+        } else {
+            return roundPreference;
+        }
+    }
 }

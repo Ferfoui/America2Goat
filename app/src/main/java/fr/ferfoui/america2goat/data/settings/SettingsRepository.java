@@ -9,7 +9,6 @@ public class SettingsRepository {
 
     public SettingsRepository(AppSettings appSettings) {
         this.appSettings = appSettings;
-        Log.d("SettingsRepository", "SettingsRepository is created");
     }
 
     public int getInputUnitPreference() {
@@ -31,20 +30,33 @@ public class SettingsRepository {
     }
 
     public int getOutputUnitPreference() {
-        Log.d("SettingsRepository", "Checking if output unit preference is available");
-
         if (appSettings.isDataAvailable(StorageKeys.OUTPUT_UNIT_STORAGE_KEY)) {
-            Log.d("SettingsRepository", "It is available");
             return appSettings.getData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY);
         }
-        Log.d("SettingsRepository", "It is not available, setting default output unit preference");
         setOutputUnitPreference(Constants.DEFAULT_OUTPUT_UNIT.ordinal());
 
-        Log.d("SettingsRepository", "Using default output unit preference");
         return Constants.DEFAULT_OUTPUT_UNIT.ordinal();
     }
 
     public void setOutputUnitPreference(int unitPreferenceOrdinal) {
         appSettings.setData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
+    }
+
+    /**
+     * Get the round preference, it is a number that represents the number of decimal places to round the result to.
+     * If the round preference is -1, the result will not be rounded.
+     * @return the round preference
+     */
+    public int getRoundPreference() {
+        if (appSettings.isDataAvailable(StorageKeys.ROUND_PREFERENCE)) {
+            return appSettings.getData(StorageKeys.ROUND_PREFERENCE);
+        }
+        setRoundPreference(Constants.DEFAULT_ROUND_PREFERENCE);
+
+        return Constants.DEFAULT_ROUND_PREFERENCE;
+    }
+
+    public void setRoundPreference(int roundPreference) {
+        appSettings.setData(StorageKeys.ROUND_PREFERENCE, roundPreference);
     }
 }

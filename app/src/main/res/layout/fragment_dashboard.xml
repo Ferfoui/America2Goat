@@ -26,7 +26,7 @@
                     android:textAlignment="center"
                     android:text="@string/input_unit_preference"
                     android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_bottom_margin"/>
+                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
 
             <Spinner
                     android:id="@+id/input_unit_preference_spinner"
@@ -77,6 +77,21 @@
                     android:text="@string/round_preference"
                     android:textSize="18sp"
                     android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+
+            <SeekBar
+                    android:id="@+id/round_preference_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:max="@integer/round_seek_bar_max"
+                    android:min="@integer/round_seek_bar_min"
+                    android:progress="4" />
+
+            <TextView
+                    android:id="@+id/selected_round_preference_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/digits"
+                    android:textSize="18sp" />
 
         </LinearLayout>
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.jetbrains.annotations.NotNull;
 
+import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.data.conversion.Converter;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
 import fr.ferfoui.america2goat.data.settings.AppSettings;
@@ -19,10 +20,12 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     private static volatile ViewModelFactory factory;
     private final ConverterRepository converterRepository;
     private final SettingsRepository settingsRepository;
+    private final int roundSeekBarMax;
 
     private ViewModelFactory(Context context) {
         Converter converter = new Converter();
         AppSettings appSettings = AppSettings.getInstance(context);
+        roundSeekBarMax = context.getResources().getInteger(R.integer.round_seek_bar_max);
 
         this.converterRepository = new ConverterRepository(converter);
         this.settingsRepository = new SettingsRepository(appSettings);
@@ -46,7 +49,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new HomeViewModel(converterRepository, settingsRepository);
         }
         if (modelClass.isAssignableFrom(DashboardViewModel.class)) {
-            return (T) new DashboardViewModel(settingsRepository);
+            return (T) new DashboardViewModel(settingsRepository, roundSeekBarMax);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

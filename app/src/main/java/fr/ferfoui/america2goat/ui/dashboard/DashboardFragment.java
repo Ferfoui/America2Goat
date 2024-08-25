@@ -1,10 +1,12 @@
 package fr.ferfoui.america2goat.ui.dashboard;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.databinding.FragmentDashboardBinding;
 import fr.ferfoui.america2goat.injection.ViewModelFactory;
 import fr.ferfoui.america2goat.unit.Unit;
@@ -44,12 +47,22 @@ public class DashboardFragment extends Fragment {
 
         Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
         Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
+        SeekBar roundPreferenceSeekBar = binding.roundPreferenceSeekBar;
+
 
         UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner,
                 outputUnitSpinner, viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference());
 
         inputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(true));
         outputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(false));
+
+
+        int barPosition = viewModel.getSeekBarPosition();
+
+        roundPreferenceSeekBar.setProgress(barPosition);
+        roundPreferenceSeekBar.setOnSeekBarChangeListener(createSeekBarListener());
+        setRoundPreferenceText(barPosition);
+
 
         viewModel.getInputUnitLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
             if (inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
@@ -89,5 +102,37 @@ public class DashboardFragment extends Fragment {
 
             }
         };
+    }
+
+    private SeekBar.OnSeekBarChangeListener createSeekBarListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                viewModel.setRoundPreference(progress);
+
+                setRoundPreferenceText(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
+    }
+
+    private void setRoundPreferenceText(int progress) {
+        String roundPreferenceText;
+        if (progress >= getResources().getInteger(R.integer.round_seek_bar_max)) {
+            roundPreferenceText = getString(R.string.no_rounding);
+        } else {
+            roundPreferenceText = String.valueOf(progress);
+        }
+
+        binding.selectedRoundPreferenceText.setText(roundPreferenceText);
     }
 }

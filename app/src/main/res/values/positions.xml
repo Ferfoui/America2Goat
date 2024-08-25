@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="round_seek_bar_max">11</integer>
+    <integer name="round_seek_bar_min">1</integer>
+</resources>
