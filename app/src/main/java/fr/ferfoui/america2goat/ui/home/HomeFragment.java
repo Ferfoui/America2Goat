@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -65,8 +64,8 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getChangedInputValue().observe(getViewLifecycleOwner(), changedInputValue -> {
-                binding.inputLengthEditText.setText(String.valueOf(changedInputValue));
-                binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
+            binding.inputLengthEditText.setText(String.valueOf(changedInputValue));
+            binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
         });
     }
 
@@ -131,36 +130,20 @@ public class HomeFragment extends Fragment {
         outputSpinnerPosition = viewModel.getOutputUnit().ordinal();
 
         UnitSpinnersConfiguration.configureSpinners(requireContext(), inputUnitSpinner,
-                outputUnitSpinner, inputSpinnerPosition, outputSpinnerPosition);
-
-        inputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(true));
-        outputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(false));
+                outputUnitSpinner, inputSpinnerPosition, outputSpinnerPosition, createOnUnitSelectedListener());
     }
 
-    private AdapterView.OnItemSelectedListener createUnitSpinnerListener(boolean isInput) {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (Unit.values().length <= position) {
-                    throw new IllegalStateException("Unexpected value: " + position);
-                }
-
-                if (isInput) {
-                    viewModel.setInputUnit(position);
-                    inputSpinnerPosition = position;
-                } else {
-                    viewModel.setOutputUnit(position);
-                    outputSpinnerPosition = position;
-                }
-
-                changeUnitText();
+    private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {
+        return (unitOrdinal, isInput) -> {
+            if (isInput) {
+                viewModel.setInputUnit(unitOrdinal);
+                inputSpinnerPosition = unitOrdinal;
+            } else {
+                viewModel.setOutputUnit(unitOrdinal);
+                outputSpinnerPosition = unitOrdinal;
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            changeUnitText();
         };
     }
 

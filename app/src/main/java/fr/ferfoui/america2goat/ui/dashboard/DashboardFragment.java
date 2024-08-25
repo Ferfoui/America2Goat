@@ -1,11 +1,9 @@
 package fr.ferfoui.america2goat.ui.dashboard;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
@@ -17,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.databinding.FragmentDashboardBinding;
 import fr.ferfoui.america2goat.injection.ViewModelFactory;
-import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
 public class DashboardFragment extends Fragment {
@@ -50,11 +47,8 @@ public class DashboardFragment extends Fragment {
         SeekBar roundPreferenceSeekBar = binding.roundPreferenceSeekBar;
 
 
-        UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner,
-                outputUnitSpinner, viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference());
-
-        inputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(true));
-        outputUnitSpinner.setOnItemSelectedListener(createUnitSpinnerListener(false));
+        UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner, outputUnitSpinner,
+                viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(), createOnUnitSelectedListener());
 
 
         int barPosition = viewModel.getSeekBarPosition();
@@ -81,25 +75,12 @@ public class DashboardFragment extends Fragment {
         binding = null;
     }
 
-    private AdapterView.OnItemSelectedListener createUnitSpinnerListener(boolean isInput) {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (Unit.values().length <= position) {
-                    throw new IllegalStateException("Unexpected value: " + position);
-                }
-
-                if (isInput) {
-                    viewModel.setInputUnitPreference(position);
-                } else {
-                    viewModel.setOutputUnitPreference(position);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+    private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {
+        return (unitOrdinal, isInput) -> {
+            if (isInput) {
+                viewModel.setInputUnitPreference(unitOrdinal);
+            } else {
+                viewModel.setOutputUnitPreference(unitOrdinal);
             }
         };
     }
