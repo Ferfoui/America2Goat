@@ -19,10 +19,10 @@ public class SettingsRepository {
             return appSettings.getData(StorageKeys.INPUT_UNIT_STORAGE_KEY);
         }
         Log.d("SettingsRepository", "It is not available, setting default input unit preference");
-        setInputUnitPreference(Constants.DEFAULT_INPUT_UNIT.ordinal());
+        setInputUnitPreference(Constants.DEFAULT_INPUT_DISTANCE_UNIT.ordinal());
 
         Log.d("SettingsRepository", "Using default input unit preference");
-        return Constants.DEFAULT_INPUT_UNIT.ordinal();
+        return Constants.DEFAULT_INPUT_DISTANCE_UNIT.ordinal();
     }
 
     public void setInputUnitPreference(int unitPreferenceOrdinal) {
@@ -33,9 +33,9 @@ public class SettingsRepository {
         if (appSettings.isDataAvailable(StorageKeys.OUTPUT_UNIT_STORAGE_KEY)) {
             return appSettings.getData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY);
         }
-        setOutputUnitPreference(Constants.DEFAULT_OUTPUT_UNIT.ordinal());
+        setOutputUnitPreference(Constants.DEFAULT_OUTPUT_DISTANCE_UNIT.ordinal());
 
-        return Constants.DEFAULT_OUTPUT_UNIT.ordinal();
+        return Constants.DEFAULT_OUTPUT_DISTANCE_UNIT.ordinal();
     }
 
     public void setOutputUnitPreference(int unitPreferenceOrdinal) {

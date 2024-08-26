@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unit"
-                android:textSize="25sp" />
+                android:textSize="@dimen/default_text_size_bigger" />
 
         <TextView
                 android:id="@+id/conversion_text"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/conversion_word"
                 android:textColor="?colorPrimary"
-                android:textSize="25sp"
+                android:textSize="@dimen/default_text_size_bigger"
                 android:layout_marginHorizontal="10sp"
                 android:layout_gravity="center" />
 
@@ -41,23 +41,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unit"
-                android:textSize="25sp" />
+                android:textSize="@dimen/default_text_size_bigger" />
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Spinner
+            android:id="@+id/unit_type_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/default_text_size_bigger"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:paddingVertical="15dp"
+            app:layout_constraintStart_toEndOf="@id/home_units_linear_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/home_main_constraint_layout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_main_constraint_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="60dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintVertical_bias="0.42"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="60dp"
-            android:id="@+id/home_main_constraint_layout">
-
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_top_constraint_layout"
@@ -76,13 +88,13 @@
 
             <EditText
                     android:id="@+id/input_length_edit_text"
-                    android:layout_width="260dp"
+                    android:layout_width="@dimen/home_value_texts_width"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
                     android:hint="@string/length_input"
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/default_text_size"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="0dp"
                     android:layout_marginEnd="5dp"
@@ -96,9 +108,9 @@
             <Spinner
                     android:id="@+id/input_unit_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="@+id/input_length_edit_text"
+                    android:layout_height="@id/input_length_edit_text"
                     android:text="@string/unit"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/default_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -123,7 +135,6 @@
                 app:layout_constraintBottom_toTopOf="@id/home_bottom_constraint_layout"
                 app:layout_constraintHorizontal_bias="0.5" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_bottom_constraint_layout"
                 android:layout_width="match_parent"
@@ -138,11 +149,11 @@
 
             <TextView
                     android:id="@+id/output_length_text"
-                    android:layout_width="260dp"
+                    android:layout_width="@dimen/home_value_texts_width"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="@string/length_output"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/default_text_size"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="0dp"
                     android:layout_marginEnd="5dp"
@@ -156,15 +167,15 @@
             <Spinner
                     android:id="@+id/output_unit_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="@+id/output_length_text"
+                    android:layout_height="@id/output_length_text"
                     android:text="@string/unit"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/default_text_size"
+                    android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    android:layout_marginStart="8dp" />
+                    app:layout_constraintHorizontal_bias="1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

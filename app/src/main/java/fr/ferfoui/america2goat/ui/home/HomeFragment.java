@@ -143,14 +143,12 @@ public class HomeFragment extends Fragment {
                 outputSpinnerPosition = unitOrdinal;
             }
 
-            changeUnitText();
+            changeUnitText(viewModel.getCurrentUnits());
         };
     }
 
-    private void changeUnitText() {
-        Unit[] units = Unit.values();
-
-        binding.inputUnitText.setText(units[inputSpinnerPosition].getResourceNameId());
-        binding.outputUnitText.setText(units[outputSpinnerPosition].getResourceNameId());
+    private void changeUnitText(Unit[] currentUsedUnits) {
+        binding.inputUnitText.setText(currentUsedUnits[inputSpinnerPosition].getResourceNameId());
+        binding.outputUnitText.setText(currentUsedUnits[outputSpinnerPosition].getResourceNameId());
     }
 }

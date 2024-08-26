@@ -30,8 +30,8 @@ public class UnitSpinnersConfiguration {
     }
 
     private static List<CharSequence> getUnitAbbreviations(Context context) {
-        return Arrays.stream(Unit.values())
-                .map(Unit::getResourceAbbreviationId)
+        return Arrays.stream(DistanceUnit.values())
+                .map(DistanceUnit::getResourceAbbreviationId)
                 .map(context::getString)
                 .collect(Collectors.toList());
     }
@@ -41,7 +41,7 @@ public class UnitSpinnersConfiguration {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (Unit.values().length <= position) {
+                if (DistanceUnit.values().length <= position) {
                     throw new IllegalStateException("Unexpected value: " + position);
                 }
 

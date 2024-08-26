@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
+import fr.ferfoui.america2goat.unit.DistanceUnit;
 import fr.ferfoui.america2goat.unit.Unit;
 
 public class HomeViewModel extends ViewModel {
@@ -20,6 +21,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Integer> outputUnitOrdinal;
     private final MutableLiveData<Double> changedInputValue;
 
+    private Unit[] currentUnits;
     private double currentInputValue;
 
     public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
@@ -31,6 +33,7 @@ public class HomeViewModel extends ViewModel {
         result = new MutableLiveData<>();
         changedInputValue = new MutableLiveData<>();
 
+        currentUnits = DistanceUnit.values();
         currentInputValue = 0d;
 
         Log.d("HomeViewModel", "Getting input and output unit preferences");
@@ -75,6 +78,10 @@ public class HomeViewModel extends ViewModel {
         return outputUnitOrdinal;
     }
 
+    public Unit[] getCurrentUnits() {
+        return currentUnits;
+    }
+
     public Unit getInputUnit() {
         return converterRepository.getInputUnit();
     }
@@ -82,7 +89,7 @@ public class HomeViewModel extends ViewModel {
     public void setInputUnit(int inputUnitOrdinal) {
         int oldInputUnitOrdinal = converterRepository.getInputUnit().ordinal();
 
-        converterRepository.setInputUnit(Unit.values()[inputUnitOrdinal]);
+        converterRepository.setInputUnit(currentUnits[inputUnitOrdinal]);
         this.inputUnitOrdinal.setValue(inputUnitOrdinal);
 
         if (inputUnitOrdinal == converterRepository.getOutputUnit().ordinal()) {
@@ -99,7 +106,7 @@ public class HomeViewModel extends ViewModel {
     public void setOutputUnit(int outputUnitOrdinal) {
         int oldOutputUnitOrdinal = converterRepository.getOutputUnit().ordinal();
 
-        converterRepository.setOutputUnit(Unit.values()[outputUnitOrdinal]);
+        converterRepository.setOutputUnit(currentUnits[outputUnitOrdinal]);
         this.outputUnitOrdinal.setValue(outputUnitOrdinal);
 
         if (outputUnitOrdinal == converterRepository.getInputUnit().ordinal()) {
