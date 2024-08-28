@@ -10,10 +10,18 @@
     <string name="centimeter_abbreviation" translatable="false">cm</string>
     <string name="inch_abbreviation" translatable="false">in</string>
     <string name="foot_abbreviation" translatable="false">ft</string>
+    <string name="gram_abbreviation" translatable="false">g</string>
+    <string name="kilogram_abbreviation" translatable="false">kg</string>
+    <string name="pound_abbreviation" translatable="false">lb</string>
+    <string name="ounce_abbreviation" translatable="false">oz</string>
     <string name="meter">meter</string>
     <string name="centimeter">centimeter</string>
     <string name="inch">inch</string>
     <string name="foot">foot</string>
+    <string name="gram">gram</string>
+    <string name="kilogram">kilogram</string>
+    <string name="pound">pound</string>
+    <string name="ounce">ounce</string>
     <string name="unit_to_unit">unit to unit</string>
     <string name="conversion_word">to</string>
     <string name="input_unit_preference">Default input unit:</string>

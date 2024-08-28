@@ -17,4 +17,8 @@
     <string name="swap_units_button_content_description">Échange les unités</string>
     <string name="digits">Chiffres</string>
     <string name="no_rounding">Pas d\'arrondi</string>
+    <string name="gram">gramme</string>
+    <string name="kilogram">kilogramme</string>
+    <string name="pound">livre</string>
+    <string name="ounce">once</string>
 </resources>
