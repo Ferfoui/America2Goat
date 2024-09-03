@@ -33,4 +33,9 @@ public enum MassUnit implements Unit {
     public int getResourceAbbreviationId() {
         return resourceAbbreviationId;
     }
+
+    @Override
+    public String getType() {
+        return Constants.MASS_UNIT_TYPE_NAME;
+    }
 }

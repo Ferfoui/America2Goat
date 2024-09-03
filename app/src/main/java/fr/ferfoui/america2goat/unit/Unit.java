@@ -21,4 +21,9 @@ public interface Unit {
      * @return the ordinal of the unit
      */
     int ordinal();
+
+    /**
+     * @return the type of the unit
+     */
+    String getType();
 }

@@ -9,6 +9,7 @@
     <dimen name="home_value_texts_width">260dp</dimen>
 
     <dimen name="preferences_layout_margin">40dp</dimen>
-    <dimen name="preferences_bottom_margin">20dp</dimen>
+    <dimen name="preferences_layout_group_margin">25dp</dimen>
+    <dimen name="preferences_text_bottom_margin">20dp</dimen>
     <dimen name="preferences_spinner_width">150sp</dimen>
 </resources>

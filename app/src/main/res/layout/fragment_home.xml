@@ -45,19 +45,6 @@
 
     </LinearLayout>
 
-    <Spinner
-            android:id="@+id/unit_type_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/default_text_size_bigger"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
-            android:paddingVertical="15dp"
-            app:layout_constraintStart_toEndOf="@id/home_units_linear_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/home_main_constraint_layout" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_main_constraint_layout"
             android:layout_width="wrap_content"

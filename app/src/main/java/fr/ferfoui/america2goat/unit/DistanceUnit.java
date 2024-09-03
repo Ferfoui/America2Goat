@@ -9,7 +9,6 @@ public enum DistanceUnit implements Unit {
     INCH(Constants.INCH_TO_METER, R.string.inch, R.string.inch_abbreviation),
     FOOT(Constants.FEET_TO_METER, R.string.foot, R.string.foot_abbreviation);
 
-
     private final double weight;
     private final int resourceNameId;
     private final int resourceAbbreviationId;
@@ -20,15 +19,23 @@ public enum DistanceUnit implements Unit {
         this.resourceAbbreviationId = resourceAbbreviationId;
     }
 
+    @Override
     public double getWeight() {
         return weight;
     }
 
+    @Override
     public int getResourceNameId() {
         return resourceNameId;
     }
 
+    @Override
     public int getResourceAbbreviationId() {
         return resourceAbbreviationId;
+    }
+
+    @Override
+    public String getType() {
+        return Constants.DISTANCE_UNIT_TYPE_NAME;
     }
 }

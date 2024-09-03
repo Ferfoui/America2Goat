@@ -30,4 +30,5 @@
     <string name="swap_units_button_content_description">Swap units</string>
     <string name="digits">Digits</string>
     <string name="no_rounding">No rounding</string>
+    <string name="selected_unit_type">Selected unit type</string>
 </resources>
