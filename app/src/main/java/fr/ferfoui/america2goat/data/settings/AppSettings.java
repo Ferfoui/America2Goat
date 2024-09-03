@@ -8,10 +8,10 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 
+import fr.ferfoui.america2goat.data.DataStorage;
 import io.reactivex.Single;
 
-
-public class AppSettings {
+public class AppSettings implements DataStorage {
 
     private static AppSettings instance;
     private final RxDataStore<Preferences> dataStore;
@@ -27,16 +27,16 @@ public class AppSettings {
         return instance;
     }
 
+    @Override
     public synchronized <T> void setData(Preferences.Key<T> storageKey, T value) {
         dataStore.updateDataAsync(prefsIn -> {
-            Log.d("AppSettings", "settingData: " + storageKey + " " + value);
             MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
             mutablePreferences.set(storageKey, value);
-            Log.d("AppSettings", "data has been set: " + storageKey + " " + value);
             return Single.just(mutablePreferences);
         });
     }
 
+    @Override
     public synchronized <T> T getData(Preferences.Key<T> storageKey) {
         Single<T> value = dataStore.data().firstOrError().map(prefs -> prefs.get(storageKey));
         try {
@@ -47,8 +47,8 @@ public class AppSettings {
         }
     }
 
+    @Override
     public synchronized boolean isDataAvailable(Preferences.Key<?> storageKey) {
-        Log.d("AppSettings", "checking if isDataAvailable: " + storageKey);
         return dataStore.data().map(prefs -> prefs.contains(storageKey)).blockingFirst();
     }
 
