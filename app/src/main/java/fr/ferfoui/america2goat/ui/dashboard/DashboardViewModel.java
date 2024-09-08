@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
+import fr.ferfoui.america2goat.unit.Unit;
+import fr.ferfoui.america2goat.unit.UnitManager;
 
 public class DashboardViewModel extends ViewModel {
 
@@ -13,6 +15,7 @@ public class DashboardViewModel extends ViewModel {
     private final MutableLiveData<Integer> outputUnitOrdinal;
 
     private final int roundSeekBarMax;
+    private final Unit[] currentUnits;
 
     public DashboardViewModel(SettingsRepository settingsRepository, int roundSeekBarMax) {
         this.settingsRepository = settingsRepository;
@@ -24,6 +27,8 @@ public class DashboardViewModel extends ViewModel {
         outputUnitOrdinal.setValue(settingsRepository.getOutputUnitPreference());
 
         this.roundSeekBarMax = roundSeekBarMax;
+
+        currentUnits = UnitManager.getUnits(settingsRepository.getUnitTypePreference());
     }
 
     public MutableLiveData<Integer> getInputUnitLiveData() {
@@ -80,5 +85,9 @@ public class DashboardViewModel extends ViewModel {
         } else {
             return roundPreference;
         }
+    }
+
+    public Unit[] getCurrentUnits() {
+        return currentUnits;
     }
 }

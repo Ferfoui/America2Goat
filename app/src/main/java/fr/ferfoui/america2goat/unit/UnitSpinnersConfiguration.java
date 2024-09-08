@@ -13,8 +13,10 @@ import java.util.stream.Collectors;
 public class UnitSpinnersConfiguration {
 
     public static void configureSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
-                                         int inputSpinnerPosition, int outputSpinnerPosition, OnUnitSelectedListener listener) {
-        List<CharSequence> unitAbbreviations = getUnitAbbreviations(context);
+                                         int inputSpinnerPosition, int outputSpinnerPosition,
+                                         Unit[] usedUnits, OnUnitSelectedListener listener) {
+
+        List<CharSequence> unitAbbreviations = getUnitAbbreviations(context, usedUnits);
 
         // The spinners need an ArrayAdapter to display items
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, unitAbbreviations);
@@ -25,23 +27,50 @@ public class UnitSpinnersConfiguration {
         outputSpinner.setAdapter(adapter);
         outputSpinner.setSelection(outputSpinnerPosition);
 
-        inputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, true));
-        outputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, false));
+        inputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, true, usedUnits.length));
+        outputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, false, usedUnits.length));
     }
 
-    private static List<CharSequence> getUnitAbbreviations(Context context) {
-        return Arrays.stream(DistanceUnit.values())
-                .map(DistanceUnit::getResourceAbbreviationId)
+    public static void refreshSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
+                                       int inputSpinnerPosition, int outputSpinnerPosition,
+                                       Unit[] usedUnits, OnUnitSelectedListener listener) {
+
+        List<CharSequence> unitAbbreviations = getUnitAbbreviations(context, usedUnits);
+
+        inputSpinner.setOnItemSelectedListener(null);
+        outputSpinner.setOnItemSelectedListener(null);
+
+        try {
+            //noinspection unchecked
+            ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) inputSpinner.getAdapter();
+            adapter.clear();
+            adapter.addAll(unitAbbreviations);
+            adapter.notifyDataSetChanged();
+
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Unexpected adapter type", e);
+        }
+
+        inputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, true, usedUnits.length));
+        outputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, false, usedUnits.length));
+
+        inputSpinner.setSelection(inputSpinnerPosition);
+        outputSpinner.setSelection(outputSpinnerPosition);
+    }
+
+    private static List<CharSequence> getUnitAbbreviations(Context context, Unit[] units) {
+        return Arrays.stream(units)
+                .map(Unit::getResourceAbbreviationId)
                 .map(context::getString)
                 .collect(Collectors.toList());
     }
 
-    private static AdapterView.OnItemSelectedListener createUnitSpinnerListener(OnUnitSelectedListener listener, boolean isInput) {
+    private static AdapterView.OnItemSelectedListener createUnitSpinnerListener(OnUnitSelectedListener listener, boolean isInput, int unitsLength) {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (DistanceUnit.values().length <= position) {
+                if (unitsLength <= position) {
                     throw new IllegalStateException("Unexpected value: " + position);
                 }
 

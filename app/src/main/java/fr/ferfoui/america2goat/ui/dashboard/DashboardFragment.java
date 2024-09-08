@@ -48,7 +48,8 @@ public class DashboardFragment extends Fragment {
 
 
         UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner, outputUnitSpinner,
-                viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(), createOnUnitSelectedListener());
+                viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
+                viewModel.getCurrentUnits(), createOnUnitSelectedListener());
 
 
         int barPosition = viewModel.getSeekBarPosition();
