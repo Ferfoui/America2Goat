@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name" translatable="false">America2Goat</string>
+    <string name="app_name" translatable="false">A2Goat</string>
+    <string name="app_full_name" translatable="false">America2Goat</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Settings</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">History</string>
     <string name="length_input">length</string>
     <string name="length_output" translatable="false">0</string>
     <string name="unit">unit</string>

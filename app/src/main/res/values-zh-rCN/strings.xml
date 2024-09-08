@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">设置</string>
+    <string name="title_notifications">历史</string>
+    <string name="length_input">长度</string>
+    <string name="unit">单位</string>
+    <string name="meter">米</string>
+    <string name="centimeter">厘米</string>
+    <string name="inch">英寸</string>
+    <string name="foot">英尺</string>
+    <string name="gram">克</string>
+    <string name="kilogram">公斤</string>
+    <string name="pound">磅</string>
+    <string name="ounce">盎司</string>
+    <string name="unit_to_unit">单位到单位</string>
+    <string name="conversion_word">到</string>
+    <string name="input_unit_preference">默认输入单位:</string>
+    <string name="output_unit_preference">默认输出单位:</string>
+    <string name="round_preference">小数位数:</string>
+    <string name="swap_units_button_content_description">交换单位</string>
+    <string name="digits">数字</string>
+    <string name="no_rounding">不四舍五入</string>
+    <string name="selected_unit_type">选择的单位类型</string>
+</resources>

@@ -2,7 +2,7 @@
 <resources>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Paramètres</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Historique</string>
     <string name="length_input">longueur</string>
     <string name="unit">unité</string>
     <string name="meter">mètre</string>
