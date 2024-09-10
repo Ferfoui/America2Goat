@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class UnitSpinnersConfiguration {
 
-    public static void configureSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
-                                         int inputSpinnerPosition, int outputSpinnerPosition,
-                                         Unit[] usedUnits, OnUnitSelectedListener listener) {
+    public static void configureUnitSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
+                                             int inputSpinnerPosition, int outputSpinnerPosition,
+                                             Unit[] usedUnits, OnUnitSelectedListener listener) {
 
         List<CharSequence> unitAbbreviations = getUnitAbbreviations(context, usedUnits);
 
@@ -31,9 +31,34 @@ public class UnitSpinnersConfiguration {
         outputSpinner.setOnItemSelectedListener(createUnitSpinnerListener(listener, false, usedUnits.length));
     }
 
-    public static void refreshSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
-                                       int inputSpinnerPosition, int outputSpinnerPosition,
-                                       Unit[] usedUnits, OnUnitSelectedListener listener) {
+    public static void configureUnitTypeSpinner(Context context, Spinner unitTypeSpinner, int unitTypePosition, OnUnitTypeSelectedListener listener) {
+        List<CharSequence> unitTypeNames = UnitManager.getUnitTypes().stream()
+                .map(UnitType::getResourceNameId)
+                .map(context::getString)
+                .collect(Collectors.toList());
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, unitTypeNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        unitTypeSpinner.setAdapter(adapter);
+        unitTypeSpinner.setSelection(unitTypePosition);
+
+        unitTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                listener.onUnitTypeSelected(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public static void refreshUnitSpinners(Context context, Spinner inputSpinner, Spinner outputSpinner,
+                                           int inputSpinnerPosition, int outputSpinnerPosition,
+                                           Unit[] usedUnits, OnUnitSelectedListener listener) {
 
         List<CharSequence> unitAbbreviations = getUnitAbbreviations(context, usedUnits);
 
@@ -86,6 +111,10 @@ public class UnitSpinnersConfiguration {
 
     public interface OnUnitSelectedListener {
         void onUnitSelected(int unitOrdinal, boolean isInput);
+    }
+
+    public interface OnUnitTypeSelectedListener {
+        void onUnitTypeSelected(int unitTypeOrdinal);
     }
 
 }

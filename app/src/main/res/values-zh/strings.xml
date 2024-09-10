@@ -22,4 +22,6 @@
     <string name="digits">数字</string>
     <string name="no_rounding">不四舍五入</string>
     <string name="selected_unit_type">选择的单位类型</string>
+    <string name="distance_unit_name">长度</string>
+    <string name="mass_unit_name">质量</string>
 </resources>

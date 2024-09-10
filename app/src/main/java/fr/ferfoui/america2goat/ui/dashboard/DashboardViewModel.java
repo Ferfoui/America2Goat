@@ -28,7 +28,7 @@ public class DashboardViewModel extends ViewModel {
 
         this.roundSeekBarMax = roundSeekBarMax;
 
-        currentUnits = UnitManager.getUnits(settingsRepository.getUnitTypePreference());
+        currentUnits = UnitManager.getUnitType(settingsRepository.getUnitTypePreference()).getUnits();
     }
 
     public MutableLiveData<Integer> getInputUnitLiveData() {

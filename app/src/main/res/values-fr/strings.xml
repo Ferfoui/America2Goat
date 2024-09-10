@@ -22,4 +22,6 @@
     <string name="pound">livre</string>
     <string name="ounce">once</string>
     <string name="selected_unit_type">Type d\'unité selectionné</string>
+    <string name="distance_unit_name">distance</string>
+    <string name="mass_unit_name">masse</string>
 </resources>

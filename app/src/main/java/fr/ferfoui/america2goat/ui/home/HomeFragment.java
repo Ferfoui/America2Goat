@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
         inputSpinnerPosition = viewModel.getInputUnit().ordinal();
         outputSpinnerPosition = viewModel.getOutputUnit().ordinal();
 
-        UnitSpinnersConfiguration.configureSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
+        UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
                 inputSpinnerPosition, outputSpinnerPosition, viewModel.getCurrentUnits(), createOnUnitSelectedListener());
     }
 

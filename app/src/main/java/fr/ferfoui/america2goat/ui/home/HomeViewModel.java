@@ -31,7 +31,7 @@ public class HomeViewModel extends ViewModel {
         result = new MutableLiveData<>();
         changedInputValue = new MutableLiveData<>();
 
-        currentUnits = UnitManager.getUnits(settingsRepository.getUnitTypePreference());
+        currentUnits = UnitManager.getUnitType(settingsRepository.getUnitTypePreference()).getUnits();
         currentInputValue = 0d;
 
         setInputUnit(settingsRepository.getInputUnitPreference());
