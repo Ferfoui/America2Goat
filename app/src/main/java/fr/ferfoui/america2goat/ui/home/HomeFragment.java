@@ -64,6 +64,10 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getChangedInputValue().observe(getViewLifecycleOwner(), changedInputValue -> {
+            if (changedInputValue == 0) {
+                binding.outputLengthText.setText("");
+                return;
+            }
             binding.inputLengthEditText.setText(String.valueOf(changedInputValue));
             binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
         });
