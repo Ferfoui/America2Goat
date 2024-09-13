@@ -119,4 +119,8 @@ public class HomeViewModel extends ViewModel {
         changedInputValue.setValue(currentInputValue);
         setInputUnit(converterRepository.getOutputUnit().ordinal());
     }
+
+    public double getCurrentInputValue() {
+        return currentInputValue;
+    }
 }

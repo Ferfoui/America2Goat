@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +65,11 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getChangedInputValue().observe(getViewLifecycleOwner(), changedInputValue -> {
-            if (changedInputValue == 0) {
+            if (viewModel.getCurrentInputValue() == 0) {
                 binding.outputLengthText.setText("");
                 return;
             }
-            binding.inputLengthEditText.setText(String.valueOf(changedInputValue));
+            binding.inputLengthEditText.setText(String.valueOf(viewModel.getCurrentInputValue()));
             binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
         });
     }
