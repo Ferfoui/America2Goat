@@ -8,6 +8,7 @@ import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
 import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitManager;
+import fr.ferfoui.america2goat.unit.UnitType;
 
 public class HomeViewModel extends ViewModel {
 
@@ -19,7 +20,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Integer> outputUnitOrdinal;
     private final MutableLiveData<Double> changedInputValue;
 
-    private final Unit[] currentUnits;
+    private UnitType currentUnitType;
     private double currentInputValue;
 
     public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
@@ -31,11 +32,11 @@ public class HomeViewModel extends ViewModel {
         result = new MutableLiveData<>();
         changedInputValue = new MutableLiveData<>();
 
-        currentUnits = UnitManager.getUnitType(settingsRepository.getUnitTypePreference()).getUnits();
+        currentUnitType = UnitManager.getUnitType(settingsRepository.getUnitTypePreference());
         currentInputValue = 0d;
 
-        setInputUnit(settingsRepository.getInputUnitPreference());
-        setOutputUnit(settingsRepository.getOutputUnitPreference());
+        setInputUnit(settingsRepository.getInputUnitPreference(currentUnitType.getName()));
+        setOutputUnit(settingsRepository.getOutputUnitPreference(currentUnitType.getName()));
     }
 
     public void convert(double value) {
@@ -89,7 +90,7 @@ public class HomeViewModel extends ViewModel {
     public void setInputUnit(int inputUnitOrdinal) {
         int oldInputUnitOrdinal = converterRepository.getInputUnit().ordinal();
 
-        converterRepository.setInputUnit(currentUnits[inputUnitOrdinal]);
+        converterRepository.setInputUnit(currentUnitType.getUnits()[inputUnitOrdinal]);
         this.inputUnitOrdinal.setValue(inputUnitOrdinal);
 
         if (inputUnitOrdinal == converterRepository.getOutputUnit().ordinal()) {
@@ -107,7 +108,7 @@ public class HomeViewModel extends ViewModel {
     public void setOutputUnit(int outputUnitOrdinal) {
         int oldOutputUnitOrdinal = converterRepository.getOutputUnit().ordinal();
 
-        converterRepository.setOutputUnit(currentUnits[outputUnitOrdinal]);
+        converterRepository.setOutputUnit(currentUnitType.getUnits()[outputUnitOrdinal]);
         this.outputUnitOrdinal.setValue(outputUnitOrdinal);
 
         if (outputUnitOrdinal == converterRepository.getInputUnit().ordinal()) {
@@ -119,7 +120,7 @@ public class HomeViewModel extends ViewModel {
 
 
     public Unit[] getCurrentUnits() {
-        return currentUnits;
+        return currentUnitType.getUnits();
     }
 
     public double getCurrentInputValue() {

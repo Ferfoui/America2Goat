@@ -1,6 +1,7 @@
 package fr.ferfoui.america2goat;
 
 import fr.ferfoui.america2goat.unit.DistanceUnit;
+import fr.ferfoui.america2goat.unit.MassUnit;
 
 public class Constants {
 
@@ -22,6 +23,9 @@ public class Constants {
     public static final DistanceUnit DEFAULT_INPUT_DISTANCE_UNIT = DistanceUnit.CENTIMETER;
     public static final DistanceUnit DEFAULT_OUTPUT_DISTANCE_UNIT = DistanceUnit.INCH;
 
-    public static final int DEFAULT_ROUND_PREFERENCE = 4;
+    public static final MassUnit DEFAULT_INPUT_MASS_UNIT = MassUnit.KILOGRAM;
+    public static final MassUnit DEFAULT_OUTPUT_MASS_UNIT = MassUnit.POUND;
 
+
+    public static final int DEFAULT_ROUND_PREFERENCE = 4;
 }

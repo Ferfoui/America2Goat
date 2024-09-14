@@ -13,8 +13,12 @@ public class UnitManager {
     private static final HashMap<String, UnitType> unitTypes = new HashMap<>(2);
 
     static {
-        unitTypes.put(Constants.DISTANCE_UNIT_TYPE_NAME, new UnitType(R.string.distance_unit_name, DistanceUnit.values()));
-        unitTypes.put(Constants.MASS_UNIT_TYPE_NAME, new UnitType(R.string.mass_unit_name, MassUnit.values()));
+        putUnitType(Constants.DISTANCE_UNIT_TYPE_NAME, R.string.distance_unit_name, DistanceUnit.values());
+        putUnitType(Constants.MASS_UNIT_TYPE_NAME, R.string.mass_unit_name, MassUnit.values());
+    }
+
+    private static void putUnitType(String unitTypeName, int resourceNameId, Unit[] units) {
+        unitTypes.put(unitTypeName, new UnitType(unitTypeName, resourceNameId, units));
     }
 
     public static UnitType getUnitType(String unitTypeName) {

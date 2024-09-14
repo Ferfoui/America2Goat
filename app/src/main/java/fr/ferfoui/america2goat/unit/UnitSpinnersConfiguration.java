@@ -20,7 +20,7 @@ public class UnitSpinnersConfiguration {
      * Configures the input and output spinners with the given units and positions.
      * The spinners will be populated with the abbreviations of the units,
      * they will be set to the given positions,
-     * and they will have listeners to notify the listener when a unit is selected.
+     * and they will have listeners to notify when a unit is selected.
      *
      * @param context               the context of the fragment
      * @param inputSpinner          the input spinner
@@ -53,7 +53,7 @@ public class UnitSpinnersConfiguration {
      * Configures the unit type spinner with the given unit type and listener.
      * The spinner will be populated with the names of the unit types,
      * it will be set to the given unit type,
-     * and it will have a listener to notify the listener when a unit type is selected.
+     * and it will have a listener to notify when a unit type is selected.
      *
      * @param context         the context of the fragment
      * @param unitTypeSpinner the unit type spinner

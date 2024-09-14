@@ -58,7 +58,7 @@ public class DashboardFragment extends Fragment {
         Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
 
         UnitSpinnersConfiguration.configureUnitTypeSpinner(requireContext(), unitTypeSpinner,
-                viewModel.getUnitTypePreference(), viewModel::setUnitTypePreference);
+                viewModel.getUnitTypePreference(), this::changeUnitType);
 
         UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
                 viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
@@ -83,6 +83,14 @@ public class DashboardFragment extends Fragment {
         roundPreferenceSeekBar.setProgress(barPosition);
         roundPreferenceSeekBar.setOnSeekBarChangeListener(createSeekBarListener());
         setRoundPreferenceText(barPosition);
+    }
+
+    private void changeUnitType(String unitType) {
+        viewModel.setUnitTypePreference(unitType);
+
+        UnitSpinnersConfiguration.refreshUnitSpinners(requireContext(), binding.inputUnitPreferenceSpinner,
+                binding.outputUnitPreferenceSpinner, viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
+                viewModel.getCurrentUnits(), createOnUnitSelectedListener());
     }
 
     private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {
