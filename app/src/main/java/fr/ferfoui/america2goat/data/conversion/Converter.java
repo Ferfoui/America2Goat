@@ -9,7 +9,7 @@ public class Converter {
     private Unit outputUnit;
 
     public Converter() {
-        this(Constants.DEFAULT_INPUT_UNIT, Constants.DEFAULT_OUTPUT_UNIT);
+        this(Constants.DEFAULT_INPUT_DISTANCE_UNIT, Constants.DEFAULT_OUTPUT_DISTANCE_UNIT);
     }
 
     public Converter(Unit initialInputUnit, Unit initialOutputUnit) {

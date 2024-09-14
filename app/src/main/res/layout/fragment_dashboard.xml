@@ -13,12 +13,39 @@
             android:paddingBottom="@dimen/preferences_layout_margin">
 
         <LinearLayout
-                android:id="@+id/input_unit_preference_layout"
+                android:id="@+id/unit_type_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginVertical="@dimen/preferences_layout_margin">
+
+            <TextView
+                    android:id="@+id/unit_type_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/selected_unit_type"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
+
+            <Spinner
+                    android:id="@+id/unit_type_spinner"
+                    android:layout_width="@dimen/preferences_spinner_width"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:padding="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/input_unit_preference_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/preferences_layout_margin"
+                android:layout_marginBottom="@dimen/preferences_layout_margin">
 
             <TextView
                     android:id="@+id/input_unit_preference_text"
@@ -27,7 +54,7 @@
                     android:textAlignment="center"
                     android:text="@string/input_unit_preference"
                     android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <Spinner
                     android:id="@+id/input_unit_preference_spinner"
@@ -44,7 +71,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginVertical="@dimen/preferences_layout_margin">
+                android:layout_marginTop="@dimen/preferences_layout_margin"
+                android:layout_marginBottom="@dimen/preferences_layout_margin">
 
             <TextView
                     android:id="@+id/output_unit_preference_text"
@@ -52,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/output_unit_preference"
                     android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <Spinner
                     android:id="@+id/output_unit_preference_spinner"
@@ -77,11 +105,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/round_preference"
                     android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_bottom_margin" />
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <SeekBar
                     android:id="@+id/round_preference_seek_bar"
-                    android:layout_width="match_parent"
+                    android:layout_width="260dp"
                     android:layout_height="40dp"
                     android:thumbTint="?colorPrimary"
                     android:progressTint="?colorPrimary"

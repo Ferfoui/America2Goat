@@ -1,62 +1,182 @@
 package fr.ferfoui.america2goat.data.settings;
 
-import android.util.Log;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import fr.ferfoui.america2goat.Constants;
+import fr.ferfoui.america2goat.data.DataStorage;
 
 public class SettingsRepository {
-    private final AppSettings appSettings;
+    private final DataStorage dataStorage;
 
-    public SettingsRepository(AppSettings appSettings) {
-        this.appSettings = appSettings;
+    private final MutableLiveData<String> unitTypePreferenceLiveData = new MutableLiveData<>();
+
+    public SettingsRepository(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
-    public int getInputUnitPreference() {
-        Log.d("SettingsRepository", "Checking if input unit preference is available");
+    public LiveData<String> getUnitTypePreferenceLiveData() {
+        return unitTypePreferenceLiveData;
+    }
 
-        if (appSettings.isDataAvailable(StorageKeys.INPUT_UNIT_STORAGE_KEY)) {
-            Log.d("SettingsRepository", "It is available");
-            return appSettings.getData(StorageKeys.INPUT_UNIT_STORAGE_KEY);
+    /**
+     * Get the unit type preference, it is a string that represents the current unit type.
+     *
+     * @return the unit type preference
+     * @see Constants#DEFAULT_UNIT_TYPE
+     */
+    public String getUnitTypePreference() {
+        return getStoredPreferenceOrSetDefault(StorageKeys.UNIT_TYPE_STORAGE_KEY, Constants.DEFAULT_UNIT_TYPE);
+    }
+
+    /**
+     * Set the unit type preference, it is a string that represents the current unit type.
+     *
+     * @param unitType the unit type to set
+     * @see Constants#DEFAULT_UNIT_TYPE
+     */
+    public void setUnitTypePreference(String unitType) {
+        dataStorage.setData(StorageKeys.UNIT_TYPE_STORAGE_KEY, unitType);
+        unitTypePreferenceLiveData.setValue(unitType);
+    }
+
+
+    /**
+     * Get the input unit preference, it is a number that represents the ordinal of the current input unit.
+     *
+     * @param unitType the unit type to get the input unit preference for
+     * @return the input unit preference
+     */
+    public int getInputUnitPreference(String unitType) {
+        Preferences.Key<Integer> key;
+        int defaultUnitOrdinal;
+
+        switch (unitType) {
+            case Constants.DISTANCE_UNIT_TYPE_NAME:
+                key = StorageKeys.INPUT_DISTANCE_UNIT_STORAGE_KEY;
+                defaultUnitOrdinal = Constants.DEFAULT_INPUT_DISTANCE_UNIT.ordinal();
+                break;
+            case Constants.MASS_UNIT_TYPE_NAME:
+                key = StorageKeys.INPUT_MASS_UNIT_STORAGE_KEY;
+                defaultUnitOrdinal = Constants.DEFAULT_INPUT_MASS_UNIT.ordinal();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown unit type: " + unitType);
         }
-        Log.d("SettingsRepository", "It is not available, setting default input unit preference");
-        setInputUnitPreference(Constants.DEFAULT_INPUT_UNIT.ordinal());
 
-        Log.d("SettingsRepository", "Using default input unit preference");
-        return Constants.DEFAULT_INPUT_UNIT.ordinal();
+        return getStoredPreferenceOrSetDefault(key, defaultUnitOrdinal);
     }
 
-    public void setInputUnitPreference(int unitPreferenceOrdinal) {
-        appSettings.setData(StorageKeys.INPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
-    }
+    /**
+     * Set the input unit preference, it is a number that represents the ordinal of the input unit.
+     *
+     * @param unitType              the unit type to set the input unit preference for
+     * @param unitPreferenceOrdinal the ordinal of the input unit to set
+     */
+    public void setInputUnitPreference(String unitType, int unitPreferenceOrdinal) {
+        Preferences.Key<Integer> key;
 
-    public int getOutputUnitPreference() {
-        if (appSettings.isDataAvailable(StorageKeys.OUTPUT_UNIT_STORAGE_KEY)) {
-            return appSettings.getData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY);
+        switch (unitType) {
+            case Constants.DISTANCE_UNIT_TYPE_NAME:
+                key = StorageKeys.INPUT_DISTANCE_UNIT_STORAGE_KEY;
+                break;
+            case Constants.MASS_UNIT_TYPE_NAME:
+                key = StorageKeys.INPUT_MASS_UNIT_STORAGE_KEY;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown unit type: " + unitType);
         }
-        setOutputUnitPreference(Constants.DEFAULT_OUTPUT_UNIT.ordinal());
 
-        return Constants.DEFAULT_OUTPUT_UNIT.ordinal();
+        dataStorage.setData(key, unitPreferenceOrdinal);
     }
 
-    public void setOutputUnitPreference(int unitPreferenceOrdinal) {
-        appSettings.setData(StorageKeys.OUTPUT_UNIT_STORAGE_KEY, unitPreferenceOrdinal);
+
+    /**
+     * Get the output unit preference, it is a number that represents the ordinal of the current output unit.
+     *
+     * @param unitType the unit type to get the output unit preference for
+     * @return the output unit preference
+     */
+    public int getOutputUnitPreference(String unitType) {
+        Preferences.Key<Integer> key;
+        int defaultUnitOrdinal;
+
+        switch (unitType) {
+            case Constants.DISTANCE_UNIT_TYPE_NAME:
+                key = StorageKeys.OUTPUT_DISTANCE_UNIT_STORAGE_KEY;
+                defaultUnitOrdinal = Constants.DEFAULT_OUTPUT_DISTANCE_UNIT.ordinal();
+                break;
+            case Constants.MASS_UNIT_TYPE_NAME:
+                key = StorageKeys.OUTPUT_MASS_UNIT_STORAGE_KEY;
+                defaultUnitOrdinal = Constants.DEFAULT_OUTPUT_MASS_UNIT.ordinal();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown unit type: " + getUnitTypePreference());
+        }
+
+        return getStoredPreferenceOrSetDefault(key, defaultUnitOrdinal);
     }
+
+    /**
+     * Set the output unit preference, it is a number that represents the ordinal of the output unit.
+     *
+     * @param unitType              the unit type to set the output unit preference for
+     * @param unitPreferenceOrdinal the ordinal of the output unit to set
+     */
+    public void setOutputUnitPreference(String unitType, int unitPreferenceOrdinal) {
+        Preferences.Key<Integer> key;
+
+        switch (unitType) {
+            case Constants.DISTANCE_UNIT_TYPE_NAME:
+                key = StorageKeys.OUTPUT_DISTANCE_UNIT_STORAGE_KEY;
+                break;
+            case Constants.MASS_UNIT_TYPE_NAME:
+                key = StorageKeys.OUTPUT_MASS_UNIT_STORAGE_KEY;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown unit type: " + unitType);
+        }
+
+        dataStorage.setData(key, unitPreferenceOrdinal);
+    }
+
 
     /**
      * Get the round preference, it is a number that represents the number of decimal places to round the result to.
      * If the round preference is -1, the result will not be rounded.
+     *
      * @return the round preference
      */
     public int getRoundPreference() {
-        if (appSettings.isDataAvailable(StorageKeys.ROUND_PREFERENCE)) {
-            return appSettings.getData(StorageKeys.ROUND_PREFERENCE);
-        }
-        setRoundPreference(Constants.DEFAULT_ROUND_PREFERENCE);
-
-        return Constants.DEFAULT_ROUND_PREFERENCE;
+        return getStoredPreferenceOrSetDefault(StorageKeys.ROUND_PREFERENCE_STORAGE_KEY, Constants.DEFAULT_ROUND_PREFERENCE);
     }
 
+    /**
+     * Set the round preference, it is a number that represents the number of decimal places to round the result to.
+     * If the round preference is -1, the result will not be rounded.
+     *
+     * @param roundPreference the number of decimal places to round the result to
+     */
     public void setRoundPreference(int roundPreference) {
-        appSettings.setData(StorageKeys.ROUND_PREFERENCE, roundPreference);
+        dataStorage.setData(StorageKeys.ROUND_PREFERENCE_STORAGE_KEY, roundPreference);
+    }
+
+
+    /**
+     * Get a stored preference or set a default value if the preference is not stored.
+     *
+     * @param key          the key of the preference
+     * @param defaultValue the default value to set if the preference is not stored
+     * @param <T>          the type of the preference
+     * @return the stored preference or the default value
+     */
+    private <T> T getStoredPreferenceOrSetDefault(Preferences.Key<T> key, T defaultValue) {
+        if (dataStorage.isDataAvailable(key)) {
+            return dataStorage.getData(key);
+        }
+        dataStorage.setData(key, defaultValue);
+
+        return defaultValue;
     }
 }

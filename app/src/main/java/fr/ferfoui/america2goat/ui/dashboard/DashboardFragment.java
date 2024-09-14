@@ -42,37 +42,55 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
-        Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
-        SeekBar roundPreferenceSeekBar = binding.roundPreferenceSeekBar;
-
-
-        UnitSpinnersConfiguration.configureSpinners(getContext(), inputUnitSpinner, outputUnitSpinner,
-                viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(), createOnUnitSelectedListener());
-
-
-        int barPosition = viewModel.getSeekBarPosition();
-
-        roundPreferenceSeekBar.setProgress(barPosition);
-        roundPreferenceSeekBar.setOnSeekBarChangeListener(createSeekBarListener());
-        setRoundPreferenceText(barPosition);
-
-
-        viewModel.getInputUnitLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
-            if (inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
-                inputUnitSpinner.setSelection(inputUnitOrdinal);
-        });
-
-        viewModel.getOutputUnitLiveData().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
-            if (outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
-                outputUnitSpinner.setSelection(outputUnitOrdinal);
-        });
+        configureSpinners();
+        configureSeekBar();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void configureSpinners() {
+        Spinner unitTypeSpinner = binding.unitTypeSpinner;
+        Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
+        Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
+
+        UnitSpinnersConfiguration.configureUnitTypeSpinner(requireContext(), unitTypeSpinner,
+                viewModel.getUnitTypePreference(), this::changeUnitType);
+
+        UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
+                viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
+                viewModel.getCurrentUnits(), createOnUnitSelectedListener());
+
+        viewModel.getInputUnitLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
+            if (binding.inputUnitPreferenceSpinner.getSelectedItemPosition() != inputUnitOrdinal)
+                binding.inputUnitPreferenceSpinner.setSelection(inputUnitOrdinal);
+        });
+
+        viewModel.getOutputUnitLiveData().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
+            if (binding.outputUnitPreferenceSpinner.getSelectedItemPosition() != outputUnitOrdinal)
+                binding.outputUnitPreferenceSpinner.setSelection(outputUnitOrdinal);
+        });
+    }
+
+    private void configureSeekBar() {
+        SeekBar roundPreferenceSeekBar = binding.roundPreferenceSeekBar;
+
+        int barPosition = viewModel.getSeekBarPosition();
+
+        roundPreferenceSeekBar.setProgress(barPosition);
+        roundPreferenceSeekBar.setOnSeekBarChangeListener(createSeekBarListener());
+        setRoundPreferenceText(barPosition);
+    }
+
+    private void changeUnitType(String unitType) {
+        viewModel.setUnitTypePreference(unitType);
+
+        UnitSpinnersConfiguration.refreshUnitSpinners(requireContext(), binding.inputUnitPreferenceSpinner,
+                binding.outputUnitPreferenceSpinner, viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
+                viewModel.getCurrentUnits(), createOnUnitSelectedListener());
     }
 
     private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {

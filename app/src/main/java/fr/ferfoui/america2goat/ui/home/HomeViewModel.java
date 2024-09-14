@@ -1,7 +1,5 @@
 package fr.ferfoui.america2goat.ui.home;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
 import fr.ferfoui.america2goat.unit.Unit;
+import fr.ferfoui.america2goat.unit.UnitManager;
+import fr.ferfoui.america2goat.unit.UnitType;
 
 public class HomeViewModel extends ViewModel {
 
@@ -19,7 +19,9 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Integer> inputUnitOrdinal;
     private final MutableLiveData<Integer> outputUnitOrdinal;
     private final MutableLiveData<Double> changedInputValue;
+    private final MutableLiveData<UnitType> changedUnitType;
 
+    private UnitType currentUnitType;
     private double currentInputValue;
 
     public HomeViewModel(ConverterRepository converterRepository, SettingsRepository settingsRepository) {
@@ -30,18 +32,33 @@ public class HomeViewModel extends ViewModel {
         outputUnitOrdinal = new MutableLiveData<>();
         result = new MutableLiveData<>();
         changedInputValue = new MutableLiveData<>();
+        changedUnitType = new MutableLiveData<>();
 
+        currentUnitType = UnitManager.getUnitType(settingsRepository.getUnitTypePreference());
         currentInputValue = 0d;
 
-        Log.d("HomeViewModel", "Getting input and output unit preferences");
-        setInputUnit(settingsRepository.getInputUnitPreference());
-        setOutputUnit(settingsRepository.getOutputUnitPreference());
-        Log.d("HomeViewModel", "Input and output unit preferences are set");
+        setInputUnit(settingsRepository.getInputUnitPreference(currentUnitType.getName()));
+        setOutputUnit(settingsRepository.getOutputUnitPreference(currentUnitType.getName()));
+
+        settingsRepository.getUnitTypePreferenceLiveData().observeForever(this::updateUnitType);
     }
 
     public void convert(double value) {
         currentInputValue = value;
         setRoundedResult(converterRepository.convert(value));
+    }
+
+    public void swapUnitsAndValues() {
+        currentInputValue = round(converterRepository.convert(currentInputValue));
+
+        changedInputValue.setValue(currentInputValue);
+        setInputUnit(converterRepository.getOutputUnit().ordinal());
+    }
+
+    public void resetInputValue() {
+        currentInputValue = 0d;
+        changedInputValue.setValue(currentInputValue);
+        setRoundedResult(0d);
     }
 
     private void setRoundedResult(double resultValue) {
@@ -59,21 +76,36 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public LiveData<String> getResult() {
+    private void updateUnitType(String unitTypeName) {
+        resetInputValue();
+        currentUnitType = UnitManager.getUnitType(unitTypeName);
+
+        setInputUnit(settingsRepository.getInputUnitPreference(unitTypeName));
+        setOutputUnit(settingsRepository.getOutputUnitPreference(unitTypeName));
+
+        changedUnitType.setValue(currentUnitType);
+    }
+
+    public LiveData<String> getResultLiveData() {
         return result;
     }
 
-    public LiveData<Double> getChangedInputValue() {
+    public LiveData<Double> getChangedInputValueLiveData() {
         return changedInputValue;
     }
 
-    public LiveData<Integer> getInputUnitOrdinal() {
+    public LiveData<UnitType> getChangedUnitTypeLiveData() {
+        return changedUnitType;
+    }
+
+    public LiveData<Integer> getInputUnitOrdinalLiveData() {
         return inputUnitOrdinal;
     }
 
-    public LiveData<Integer> getOutputUnitOrdinal() {
+    public LiveData<Integer> getOutputUnitOrdinalLiveData() {
         return outputUnitOrdinal;
     }
+
 
     public Unit getInputUnit() {
         return converterRepository.getInputUnit();
@@ -82,7 +114,7 @@ public class HomeViewModel extends ViewModel {
     public void setInputUnit(int inputUnitOrdinal) {
         int oldInputUnitOrdinal = converterRepository.getInputUnit().ordinal();
 
-        converterRepository.setInputUnit(Unit.values()[inputUnitOrdinal]);
+        converterRepository.setInputUnit(currentUnitType.getUnits()[inputUnitOrdinal]);
         this.inputUnitOrdinal.setValue(inputUnitOrdinal);
 
         if (inputUnitOrdinal == converterRepository.getOutputUnit().ordinal()) {
@@ -92,6 +124,7 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+
     public Unit getOutputUnit() {
         return converterRepository.getOutputUnit();
     }
@@ -99,7 +132,7 @@ public class HomeViewModel extends ViewModel {
     public void setOutputUnit(int outputUnitOrdinal) {
         int oldOutputUnitOrdinal = converterRepository.getOutputUnit().ordinal();
 
-        converterRepository.setOutputUnit(Unit.values()[outputUnitOrdinal]);
+        converterRepository.setOutputUnit(currentUnitType.getUnits()[outputUnitOrdinal]);
         this.outputUnitOrdinal.setValue(outputUnitOrdinal);
 
         if (outputUnitOrdinal == converterRepository.getInputUnit().ordinal()) {
@@ -109,11 +142,16 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public void swapUnitsAndValues() {
 
-        currentInputValue = round(converterRepository.convert(currentInputValue));
+    public Unit[] getCurrentUnits() {
+        return currentUnitType.getUnits();
+    }
 
-        changedInputValue.setValue(currentInputValue);
-        setInputUnit(converterRepository.getOutputUnit().ordinal());
+    public UnitType getCurrentUnitType() {
+        return currentUnitType;
+    }
+
+    public double getCurrentInputValue() {
+        return currentInputValue;
     }
 }

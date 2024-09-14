@@ -5,8 +5,13 @@ import androidx.datastore.preferences.core.PreferencesKeys;
 
 public class StorageKeys {
 
-    public static final Preferences.Key<Integer> INPUT_UNIT_STORAGE_KEY = PreferencesKeys.intKey("input_unit_preference");
-    public static final Preferences.Key<Integer> OUTPUT_UNIT_STORAGE_KEY = PreferencesKeys.intKey("output_unit_preference");
+    public static final Preferences.Key<Integer> INPUT_DISTANCE_UNIT_STORAGE_KEY = PreferencesKeys.intKey("input_distance_unit_preference");
+    public static final Preferences.Key<Integer> INPUT_MASS_UNIT_STORAGE_KEY = PreferencesKeys.intKey("input_mass_unit_preference");
 
-    public static final Preferences.Key<Integer> ROUND_PREFERENCE = PreferencesKeys.intKey("round_preference");
+    public static final Preferences.Key<Integer> OUTPUT_DISTANCE_UNIT_STORAGE_KEY = PreferencesKeys.intKey("output_distance_unit_preference");
+    public static final Preferences.Key<Integer> OUTPUT_MASS_UNIT_STORAGE_KEY = PreferencesKeys.intKey("output_mass_unit_preference");
+
+    public static final Preferences.Key<Integer> ROUND_PREFERENCE_STORAGE_KEY = PreferencesKeys.intKey("round_preference");
+
+    public static final Preferences.Key<String> UNIT_TYPE_STORAGE_KEY = PreferencesKeys.stringKey("unit_type_preference");
 }

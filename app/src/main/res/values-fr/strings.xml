@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Paramètres</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="length_input">longueur</string>
+    <string name="title_notifications">Historique</string>
     <string name="unit">unité</string>
     <string name="meter">mètre</string>
     <string name="centimeter">centimètre</string>
@@ -17,4 +16,11 @@
     <string name="swap_units_button_content_description">Échange les unités</string>
     <string name="digits">Chiffres</string>
     <string name="no_rounding">Pas d\'arrondi</string>
+    <string name="gram">gramme</string>
+    <string name="kilogram">kilogramme</string>
+    <string name="pound">livre</string>
+    <string name="ounce">once</string>
+    <string name="selected_unit_type">Type d\'unité selectionné</string>
+    <string name="distance_unit_name">longueur</string>
+    <string name="mass_unit_name">masse</string>
 </resources>
