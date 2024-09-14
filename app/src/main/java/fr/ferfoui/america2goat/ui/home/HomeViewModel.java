@@ -43,6 +43,13 @@ public class HomeViewModel extends ViewModel {
         setRoundedResult(converterRepository.convert(value));
     }
 
+    public void swapUnitsAndValues() {
+        currentInputValue = round(converterRepository.convert(currentInputValue));
+
+        changedInputValue.setValue(currentInputValue);
+        setInputUnit(converterRepository.getOutputUnit().ordinal());
+    }
+
     private void setRoundedResult(double resultValue) {
         result.setValue(String.valueOf(round(resultValue)));
     }
@@ -58,25 +65,22 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public LiveData<String> getResult() {
+    public LiveData<String> getResultLiveData() {
         return result;
     }
 
-    public LiveData<Double> getChangedInputValue() {
+    public LiveData<Double> getChangedInputValueLiveData() {
         return changedInputValue;
     }
 
-    public LiveData<Integer> getInputUnitOrdinal() {
+    public LiveData<Integer> getInputUnitOrdinalLiveData() {
         return inputUnitOrdinal;
     }
 
-    public LiveData<Integer> getOutputUnitOrdinal() {
+    public LiveData<Integer> getOutputUnitOrdinalLiveData() {
         return outputUnitOrdinal;
     }
 
-    public Unit[] getCurrentUnits() {
-        return currentUnits;
-    }
 
     public Unit getInputUnit() {
         return converterRepository.getInputUnit();
@@ -95,6 +99,7 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+
     public Unit getOutputUnit() {
         return converterRepository.getOutputUnit();
     }
@@ -112,12 +117,9 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public void swapUnitsAndValues() {
 
-        currentInputValue = round(converterRepository.convert(currentInputValue));
-
-        changedInputValue.setValue(currentInputValue);
-        setInputUnit(converterRepository.getOutputUnit().ordinal());
+    public Unit[] getCurrentUnits() {
+        return currentUnits;
     }
 
     public double getCurrentInputValue() {

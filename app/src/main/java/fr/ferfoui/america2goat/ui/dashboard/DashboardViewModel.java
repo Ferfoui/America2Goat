@@ -39,6 +39,16 @@ public class DashboardViewModel extends ViewModel {
         return outputUnitOrdinal;
     }
 
+
+    public String getUnitTypePreference() {
+        return settingsRepository.getUnitTypePreference();
+    }
+
+    public void setUnitTypePreference(String unitType) {
+        settingsRepository.setUnitTypePreference(unitType);
+    }
+
+
     public int getInputUnitPreference() {
         return settingsRepository.getInputUnitPreference();
     }
@@ -53,6 +63,7 @@ public class DashboardViewModel extends ViewModel {
             setOutputUnitPreference(oldInputUnitOrdinal);
         }
     }
+
 
     public int getOutputUnitPreference() {
         return settingsRepository.getOutputUnitPreference();
@@ -69,13 +80,6 @@ public class DashboardViewModel extends ViewModel {
         }
     }
 
-    public void setRoundPreference(int progress) {
-        if (progress >= roundSeekBarMax) {
-            progress = -1;
-        }
-
-        settingsRepository.setRoundPreference(progress);
-    }
 
     public int getSeekBarPosition() {
         int roundPreference = settingsRepository.getRoundPreference();
@@ -89,5 +93,13 @@ public class DashboardViewModel extends ViewModel {
 
     public Unit[] getCurrentUnits() {
         return currentUnits;
+    }
+
+    public void setRoundPreference(int progress) {
+        if (progress >= roundSeekBarMax) {
+            progress = -1;
+        }
+
+        settingsRepository.setRoundPreference(progress);
     }
 }

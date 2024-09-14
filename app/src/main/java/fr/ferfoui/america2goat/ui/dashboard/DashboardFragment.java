@@ -57,8 +57,10 @@ public class DashboardFragment extends Fragment {
         Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
         Spinner outputUnitSpinner = binding.outputUnitPreferenceSpinner;
 
+        UnitSpinnersConfiguration.configureUnitTypeSpinner(requireContext(), unitTypeSpinner,
+                viewModel.getUnitTypePreference(), viewModel::setUnitTypePreference);
 
-        UnitSpinnersConfiguration.configureUnitSpinners(getContext(), inputUnitSpinner, outputUnitSpinner,
+        UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
                 viewModel.getInputUnitPreference(), viewModel.getOutputUnitPreference(),
                 viewModel.getCurrentUnits(), createOnUnitSelectedListener());
 

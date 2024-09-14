@@ -1,4 +1,4 @@
-package fr.ferfoui.america2goat.ui.text;
+package fr.ferfoui.america2goat.text;
 
 import android.text.TextWatcher;
 

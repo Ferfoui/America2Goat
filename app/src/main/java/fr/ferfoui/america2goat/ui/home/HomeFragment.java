@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import fr.ferfoui.america2goat.databinding.FragmentHomeBinding;
 import fr.ferfoui.america2goat.injection.ViewModelFactory;
-import fr.ferfoui.america2goat.ui.text.TextChangedWatcher;
+import fr.ferfoui.america2goat.text.TextChangedWatcher;
 import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         configureInputEditText();
-        viewModel.getResult().observe(getViewLifecycleOwner(), binding.outputLengthText::setText);
+        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), binding.outputLengthText::setText);
 
         configureSpinners();
         configureSwapButton();
@@ -82,21 +82,21 @@ public class HomeFragment extends Fragment {
         UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
                 inputSpinnerPosition, outputSpinnerPosition, viewModel.getCurrentUnits(), createOnUnitSelectedListener());
 
-        viewModel.getInputUnitOrdinal().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
-            if (binding.inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
-                binding.inputUnitSpinner.setSelection(inputUnitOrdinal);
+        viewModel.getInputUnitOrdinalLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
+            if (inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
+                inputUnitSpinner.setSelection(inputUnitOrdinal);
         });
 
-        viewModel.getOutputUnitOrdinal().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
-            if (binding.outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
-                binding.outputUnitSpinner.setSelection(outputUnitOrdinal);
+        viewModel.getOutputUnitOrdinalLiveData().observe(getViewLifecycleOwner(), outputUnitOrdinal -> {
+            if (outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
+                outputUnitSpinner.setSelection(outputUnitOrdinal);
         });
     }
 
     private void configureSwapButton() {
         binding.swapButton.setOnClickListener(v -> viewModel.swapUnitsAndValues());
 
-        viewModel.getChangedInputValue().observe(getViewLifecycleOwner(), changedInputValue -> {
+        viewModel.getChangedInputValueLiveData().observe(getViewLifecycleOwner(), changedInputValue -> {
             if (viewModel.getCurrentInputValue() == 0) {
                 binding.outputLengthText.setText("");
                 return;
