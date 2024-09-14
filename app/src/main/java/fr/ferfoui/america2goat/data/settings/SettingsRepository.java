@@ -1,6 +1,8 @@
 package fr.ferfoui.america2goat.data.settings;
 
 import androidx.datastore.preferences.core.Preferences;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.data.DataStorage;
@@ -8,10 +10,15 @@ import fr.ferfoui.america2goat.data.DataStorage;
 public class SettingsRepository {
     private final DataStorage dataStorage;
 
+    private final MutableLiveData<String> unitTypePreferenceLiveData = new MutableLiveData<>();
+
     public SettingsRepository(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
+    public LiveData<String> getUnitTypePreferenceLiveData() {
+        return unitTypePreferenceLiveData;
+    }
 
     /**
      * Get the unit type preference, it is a string that represents the current unit type.
@@ -31,6 +38,7 @@ public class SettingsRepository {
      */
     public void setUnitTypePreference(String unitType) {
         dataStorage.setData(StorageKeys.UNIT_TYPE_STORAGE_KEY, unitType);
+        unitTypePreferenceLiveData.setValue(unitType);
     }
 
 
@@ -63,7 +71,7 @@ public class SettingsRepository {
     /**
      * Set the input unit preference, it is a number that represents the ordinal of the input unit.
      *
-     * @param unitType            the unit type to set the input unit preference for
+     * @param unitType              the unit type to set the input unit preference for
      * @param unitPreferenceOrdinal the ordinal of the input unit to set
      */
     public void setInputUnitPreference(String unitType, int unitPreferenceOrdinal) {
@@ -113,7 +121,7 @@ public class SettingsRepository {
     /**
      * Set the output unit preference, it is a number that represents the ordinal of the output unit.
      *
-     * @param unitType            the unit type to set the output unit preference for
+     * @param unitType              the unit type to set the output unit preference for
      * @param unitPreferenceOrdinal the ordinal of the output unit to set
      */
     public void setOutputUnitPreference(String unitType, int unitPreferenceOrdinal) {

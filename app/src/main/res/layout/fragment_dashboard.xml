@@ -45,7 +45,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/preferences_layout_margin"
-                android:layout_marginBottom="@dimen/preferences_layout_group_margin">
+                android:layout_marginBottom="@dimen/preferences_layout_margin">
 
             <TextView
                     android:id="@+id/input_unit_preference_text"
@@ -71,7 +71,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/preferences_layout_group_margin"
+                android:layout_marginTop="@dimen/preferences_layout_margin"
                 android:layout_marginBottom="@dimen/preferences_layout_margin">
 
             <TextView

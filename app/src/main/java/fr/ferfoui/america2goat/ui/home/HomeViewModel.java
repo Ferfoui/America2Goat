@@ -19,6 +19,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Integer> inputUnitOrdinal;
     private final MutableLiveData<Integer> outputUnitOrdinal;
     private final MutableLiveData<Double> changedInputValue;
+    private final MutableLiveData<UnitType> changedUnitType;
 
     private UnitType currentUnitType;
     private double currentInputValue;
@@ -31,12 +32,15 @@ public class HomeViewModel extends ViewModel {
         outputUnitOrdinal = new MutableLiveData<>();
         result = new MutableLiveData<>();
         changedInputValue = new MutableLiveData<>();
+        changedUnitType = new MutableLiveData<>();
 
         currentUnitType = UnitManager.getUnitType(settingsRepository.getUnitTypePreference());
         currentInputValue = 0d;
 
         setInputUnit(settingsRepository.getInputUnitPreference(currentUnitType.getName()));
         setOutputUnit(settingsRepository.getOutputUnitPreference(currentUnitType.getName()));
+
+        settingsRepository.getUnitTypePreferenceLiveData().observeForever(this::updateUnitType);
     }
 
     public void convert(double value) {
@@ -49,6 +53,12 @@ public class HomeViewModel extends ViewModel {
 
         changedInputValue.setValue(currentInputValue);
         setInputUnit(converterRepository.getOutputUnit().ordinal());
+    }
+
+    public void resetInputValue() {
+        currentInputValue = 0d;
+        changedInputValue.setValue(currentInputValue);
+        setRoundedResult(0d);
     }
 
     private void setRoundedResult(double resultValue) {
@@ -66,12 +76,26 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    private void updateUnitType(String unitTypeName) {
+        resetInputValue();
+        currentUnitType = UnitManager.getUnitType(unitTypeName);
+
+        setInputUnit(settingsRepository.getInputUnitPreference(unitTypeName));
+        setOutputUnit(settingsRepository.getOutputUnitPreference(unitTypeName));
+
+        changedUnitType.setValue(currentUnitType);
+    }
+
     public LiveData<String> getResultLiveData() {
         return result;
     }
 
     public LiveData<Double> getChangedInputValueLiveData() {
         return changedInputValue;
+    }
+
+    public LiveData<UnitType> getChangedUnitTypeLiveData() {
+        return changedUnitType;
     }
 
     public LiveData<Integer> getInputUnitOrdinalLiveData() {
@@ -121,6 +145,10 @@ public class HomeViewModel extends ViewModel {
 
     public Unit[] getCurrentUnits() {
         return currentUnitType.getUnits();
+    }
+
+    public UnitType getCurrentUnitType() {
+        return currentUnitType;
     }
 
     public double getCurrentInputValue() {

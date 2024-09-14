@@ -18,6 +18,7 @@ import fr.ferfoui.america2goat.injection.ViewModelFactory;
 import fr.ferfoui.america2goat.text.TextChangedWatcher;
 import fr.ferfoui.america2goat.unit.Unit;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
+import fr.ferfoui.america2goat.unit.UnitType;
 
 public class HomeFragment extends Fragment {
 
@@ -25,11 +26,13 @@ public class HomeFragment extends Fragment {
     int outputSpinnerPosition;
     private HomeViewModel viewModel;
     private FragmentHomeBinding binding;
+    private UnitType currentUnitType;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(HomeViewModel.class);
+        currentUnitType = viewModel.getCurrentUnitType();
     }
 
     @Override
@@ -59,9 +62,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void configureInputEditText() {
-        EditText inputEditText = binding.inputLengthEditText;
+        EditText inputEditText = binding.inputEditText;
 
         addFiltersToInputEditText(inputEditText);
+
+        inputEditText.setHint(viewModel.getCurrentUnitType().getResourceNameId());
 
         inputEditText.addTextChangedListener((TextChangedWatcher) text -> {
             if (text.toString().isEmpty()) {
@@ -69,6 +74,15 @@ public class HomeFragment extends Fragment {
                 return;
             }
             viewModel.convert(Double.parseDouble(text.toString()));
+        });
+
+        viewModel.getChangedInputValueLiveData().observe(getViewLifecycleOwner(), changedInputValue -> {
+            if (viewModel.getCurrentInputValue() == 0d) {
+                binding.inputEditText.setText("");
+                return;
+            }
+            binding.inputEditText.setText(String.valueOf(viewModel.getCurrentInputValue()));
+            binding.inputEditText.setSelection(binding.inputEditText.getText().length());
         });
     }
 
@@ -80,7 +94,7 @@ public class HomeFragment extends Fragment {
         outputSpinnerPosition = viewModel.getOutputUnit().ordinal();
 
         UnitSpinnersConfiguration.configureUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
-                inputSpinnerPosition, outputSpinnerPosition, viewModel.getCurrentUnits(), createOnUnitSelectedListener());
+                inputSpinnerPosition, outputSpinnerPosition, viewModel.getCurrentUnits(), this::setCurrentUnit);
 
         viewModel.getInputUnitOrdinalLiveData().observe(getViewLifecycleOwner(), inputUnitOrdinal -> {
             if (inputUnitSpinner.getSelectedItemPosition() != inputUnitOrdinal)
@@ -91,19 +105,28 @@ public class HomeFragment extends Fragment {
             if (outputUnitSpinner.getSelectedItemPosition() != outputUnitOrdinal)
                 outputUnitSpinner.setSelection(outputUnitOrdinal);
         });
+
+        viewModel.getChangedUnitTypeLiveData().observe(getViewLifecycleOwner(), unitType -> {
+            if (unitType != currentUnitType) {
+                currentUnitType = unitType;
+
+                viewModel.resetInputValue();
+                Unit[] currentUsedUnits = unitType.getUnits();
+
+                inputSpinnerPosition = viewModel.getInputUnit().ordinal();
+                outputSpinnerPosition = viewModel.getOutputUnit().ordinal();
+
+                binding.inputEditText.setHint(unitType.getResourceNameId());
+
+                changeUnitText(currentUsedUnits);
+                UnitSpinnersConfiguration.refreshUnitSpinners(requireContext(), inputUnitSpinner, outputUnitSpinner,
+                        inputSpinnerPosition, outputSpinnerPosition, currentUsedUnits, this::setCurrentUnit);
+            }
+        });
     }
 
     private void configureSwapButton() {
         binding.swapButton.setOnClickListener(v -> viewModel.swapUnitsAndValues());
-
-        viewModel.getChangedInputValueLiveData().observe(getViewLifecycleOwner(), changedInputValue -> {
-            if (viewModel.getCurrentInputValue() == 0) {
-                binding.outputLengthText.setText("");
-                return;
-            }
-            binding.inputLengthEditText.setText(String.valueOf(viewModel.getCurrentInputValue()));
-            binding.inputLengthEditText.setSelection(binding.inputLengthEditText.getText().length());
-        });
     }
 
     private void addFiltersToInputEditText(EditText inputEditText) {
@@ -126,18 +149,16 @@ public class HomeFragment extends Fragment {
         inputEditText.setFilters(new InputFilter[]{commaDecimalTextFilter, lengthFilter});
     }
 
-    private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {
-        return (unitOrdinal, isInput) -> {
-            if (isInput) {
-                viewModel.setInputUnit(unitOrdinal);
-                inputSpinnerPosition = unitOrdinal;
-            } else {
-                viewModel.setOutputUnit(unitOrdinal);
-                outputSpinnerPosition = unitOrdinal;
-            }
+    private void setCurrentUnit(int unitOrdinal, boolean isInput) {
+        if (isInput) {
+            viewModel.setInputUnit(unitOrdinal);
+            inputSpinnerPosition = unitOrdinal;
+        } else {
+            viewModel.setOutputUnit(unitOrdinal);
+            outputSpinnerPosition = unitOrdinal;
+        }
 
-            changeUnitText(viewModel.getCurrentUnits());
-        };
+        changeUnitText(viewModel.getCurrentUnits());
     }
 
     private void changeUnitText(Unit[] currentUsedUnits) {

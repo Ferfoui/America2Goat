@@ -74,7 +74,7 @@
                 app:layout_constraintVertical_bias="0.4">
 
             <EditText
-                    android:id="@+id/input_length_edit_text"
+                    android:id="@+id/input_edit_text"
                     android:layout_width="@dimen/home_value_texts_width"
                     android:layout_height="wrap_content"
                     android:autofillHints=""
@@ -95,7 +95,7 @@
             <Spinner
                     android:id="@+id/input_unit_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="@id/input_length_edit_text"
+                    android:layout_height="@id/input_edit_text"
                     android:text="@string/unit"
                     android:textSize="@dimen/default_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
