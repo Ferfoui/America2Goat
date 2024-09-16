@@ -3,7 +3,7 @@
     <string name="app_full_name" translatable="false">America2Goat</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Settings</string>
-    <string name="title_notifications">History</string>
+    <string name="title_app_info">App</string>
     <string name="conversion_output" translatable="false">0</string>
     <string name="unit">unit</string>
     <string name="meter_abbreviation" translatable="false">m</string>

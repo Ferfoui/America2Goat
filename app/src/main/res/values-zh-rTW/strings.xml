@@ -2,7 +2,7 @@
 <resources>
     <string name="title_home">首頁</string>
     <string name="title_dashboard">設置</string>
-    <string name="title_notifications">歷史</string>
+    <string name="title_app_info">應用</string>
     <string name="unit">單位</string>
     <string name="meter">米</string>
     <string name="centimeter">厘米</string>

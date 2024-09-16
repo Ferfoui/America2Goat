@@ -2,7 +2,7 @@
 <resources>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Paramètres</string>
-    <string name="title_notifications">Historique</string>
+    <string name="title_app_info">App</string>
     <string name="unit">unité</string>
     <string name="meter">mètre</string>
     <string name="centimeter">centimètre</string>

@@ -1,4 +1,4 @@
-package fr.ferfoui.america2goat.ui.notifications;
+package fr.ferfoui.america2goat.ui.appinfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import fr.ferfoui.america2goat.databinding.FragmentNotificationsBinding;
+import fr.ferfoui.america2goat.databinding.FragmentAppInfoBinding;
 
-public class NotificationsFragment extends Fragment {
+public class AppInfoFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentAppInfoBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        AppInfoViewModel appInfoViewModel =
+                new ViewModelProvider(this).get(AppInfoViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentAppInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        appInfoViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
