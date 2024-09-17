@@ -13,6 +13,41 @@
             android:paddingBottom="@dimen/preferences_layout_margin">
 
         <LinearLayout
+                android:id="@+id/round_preference_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/preferences_layout_margin">
+
+            <TextView
+                    android:id="@+id/round_preference_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/round_preference"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
+
+            <SeekBar
+                    android:id="@+id/round_preference_seek_bar"
+                    android:layout_width="260dp"
+                    android:layout_height="40dp"
+                    android:thumbTint="?colorPrimary"
+                    android:progressTint="?colorPrimary"
+                    android:max="@integer/round_seek_bar_max"
+                    android:min="@integer/round_seek_bar_min"
+                    android:progress="4" />
+
+            <TextView
+                    android:id="@+id/selected_round_preference_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/digits"
+                    android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
                 android:id="@+id/unit_type_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,41 +123,6 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:padding="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/round_preference_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginVertical="@dimen/preferences_layout_margin">
-
-            <TextView
-                    android:id="@+id/round_preference_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/round_preference"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
-
-            <SeekBar
-                    android:id="@+id/round_preference_seek_bar"
-                    android:layout_width="260dp"
-                    android:layout_height="40dp"
-                    android:thumbTint="?colorPrimary"
-                    android:progressTint="?colorPrimary"
-                    android:max="@integer/round_seek_bar_max"
-                    android:min="@integer/round_seek_bar_min"
-                    android:progress="4" />
-
-            <TextView
-                    android:id="@+id/selected_round_preference_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/digits"
-                    android:textSize="18sp" />
 
         </LinearLayout>
 
