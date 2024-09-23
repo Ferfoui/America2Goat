@@ -23,4 +23,6 @@
     <string name="selected_unit_type">选择的单位类型</string>
     <string name="distance_unit_name">长度</string>
     <string name="mass_unit_name">质量</string>
+    <string name="dev_info_title">开发者:</string>
+    <string name="app_info_text">America2Goat是一款用于将英制单位转换为公制单位的应用。</string>
 </resources>

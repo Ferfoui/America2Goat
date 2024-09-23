@@ -25,7 +25,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/round_preference"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/default_text_size_smaller"
                     android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <SeekBar
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/digits"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/default_text_size_smaller" />
 
         </LinearLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="@string/selected_unit_type"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/default_text_size_smaller"
                     android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <Spinner
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="@string/input_unit_preference"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/default_text_size_smaller"
                     android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <Spinner
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/output_unit_preference"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/default_text_size_smaller"
                     android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
 
             <Spinner

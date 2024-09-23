@@ -23,4 +23,6 @@
     <string name="selected_unit_type">選擇的單位類型</string>
     <string name="distance_unit_name">長度</string>
     <string name="mass_unit_name">質量</string>
+    <string name="dev_info_title">開發者:</string>
+    <string name="app_info_text">America2Goat是一款用於將英制單位轉換為公制單位的應用。</string>
 </resources>

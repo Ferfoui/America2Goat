@@ -33,4 +33,9 @@
     <string name="selected_unit_type">Selected unit type</string>
     <string name="distance_unit_name">length</string>
     <string name="mass_unit_name">mass</string>
+    <string name="dev_info_title">Developer :</string>
+    <string name="app_info_text">America2Goat is an Android app to convert imperial to metric system</string>
+    <string name="where_to_find_title" translatable="false">GitHub :</string>
+    <string name="main_dev_name" translatable="false">Ferfoui</string>
+    <string name="main_dev_link" translatable="false">https://github.com/Ferfoui</string>
 </resources>

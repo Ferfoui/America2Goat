@@ -23,4 +23,6 @@
     <string name="selected_unit_type">Type d\'unité selectionné</string>
     <string name="distance_unit_name">longueur</string>
     <string name="mass_unit_name">masse</string>
+    <string name="dev_info_title">Developpeur :</string>
+    <string name="app_info_text">America2Goat est une application utilisée pour convertir les unités du système impérial en unité du système métrique.</string>
 </resources>
