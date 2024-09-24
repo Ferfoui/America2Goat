@@ -40,23 +40,6 @@
                 android:layout_marginVertical="@dimen/preferences_layout_margin">
 
             <TextView
-                    android:id="@+id/dev_presentation_info_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dev_info_title"
-                    android:textSize="@dimen/default_text_size"
-                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
-
-            <TextView
-                    android:id="@+id/dev_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_dev_name"
-                    android:textColor="?colorPrimaryVariant"
-                    android:textSize="@dimen/default_text_size_bigger"
-                    android:layout_marginBottom="@dimen/preferences_layout_margin" />
-
-            <TextView
                     android:id="@+id/dev_where_to_find_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,8 +52,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_text_size_smaller"
-                    android:text="@string/main_dev_link" />
-
+                    android:text="@string/repository_text"
+                    android:textColor="?colorSecondary"
+                    android:clickable="true" />
         </LinearLayout>
 
     </LinearLayout>
