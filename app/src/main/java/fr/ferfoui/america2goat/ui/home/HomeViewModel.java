@@ -77,8 +77,13 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void updateUnitType(String unitTypeName) {
+        UnitType newUnitType = UnitManager.getUnitType(unitTypeName);
+
+        if (newUnitType == currentUnitType)
+            return;
+
         resetInputValue();
-        currentUnitType = UnitManager.getUnitType(unitTypeName);
+        currentUnitType = newUnitType;
 
         setInputUnit(settingsRepository.getInputUnitPreference(unitTypeName));
         setOutputUnit(settingsRepository.getOutputUnitPreference(unitTypeName));
