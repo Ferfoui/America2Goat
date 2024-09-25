@@ -1,7 +1,9 @@
 package fr.ferfoui.america2goat;
 
+import fr.ferfoui.america2goat.data.settings.StorageKeys;
 import fr.ferfoui.america2goat.unit.DistanceUnit;
 import fr.ferfoui.america2goat.unit.MassUnit;
+import fr.ferfoui.america2goat.unit.UnitStorage;
 
 public class Constants {
 
@@ -25,6 +27,18 @@ public class Constants {
 
     public static final MassUnit DEFAULT_INPUT_MASS_UNIT = MassUnit.KILOGRAM;
     public static final MassUnit DEFAULT_OUTPUT_MASS_UNIT = MassUnit.POUND;
+
+    public static final UnitStorage DEFAULT_DISTANCE_UNIT_STORAGE = new UnitStorage(
+            StorageKeys.INPUT_DISTANCE_UNIT_STORAGE_KEY,
+            StorageKeys.OUTPUT_DISTANCE_UNIT_STORAGE_KEY,
+            DEFAULT_INPUT_DISTANCE_UNIT, DEFAULT_OUTPUT_DISTANCE_UNIT
+    );
+
+    public static final UnitStorage DEFAULT_MASS_UNIT_STORAGE = new UnitStorage(
+            StorageKeys.INPUT_MASS_UNIT_STORAGE_KEY,
+            StorageKeys.OUTPUT_MASS_UNIT_STORAGE_KEY,
+            DEFAULT_INPUT_MASS_UNIT, DEFAULT_OUTPUT_MASS_UNIT
+    );
 
 
     public static final int DEFAULT_ROUND_PREFERENCE = 4;
