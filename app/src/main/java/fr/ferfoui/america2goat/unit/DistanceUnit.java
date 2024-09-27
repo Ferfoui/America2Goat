@@ -3,6 +3,9 @@ package fr.ferfoui.america2goat.unit;
 import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.R;
 
+/**
+ * Enum representing the distance units.
+ */
 public enum DistanceUnit implements Unit {
     METER(1d, R.string.meter, R.string.meter_abbreviation),
     CENTIMETER(Constants.CM_TO_METER, R.string.centimeter, R.string.centimeter_abbreviation),

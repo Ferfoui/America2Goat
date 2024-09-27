@@ -3,6 +3,9 @@ package fr.ferfoui.america2goat.data.settings;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
 
+/**
+ * Class for storing the keys used to access the data store.
+ */
 public class StorageKeys {
 
     public static final Preferences.Key<Integer> INPUT_DISTANCE_UNIT_STORAGE_KEY = PreferencesKeys.intKey("input_distance_unit_preference");

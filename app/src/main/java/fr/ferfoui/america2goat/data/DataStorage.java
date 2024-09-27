@@ -2,6 +2,9 @@ package fr.ferfoui.america2goat.data;
 
 import androidx.datastore.preferences.core.Preferences;
 
+/**
+ * Interface for data storage operations.
+ */
 public interface DataStorage {
 
     /**

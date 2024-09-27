@@ -3,6 +3,9 @@ package fr.ferfoui.america2goat.unit;
 import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.R;
 
+/**
+ * Enum representing the mass units.
+ */
 public enum MassUnit implements Unit {
     GRAM(1, R.string.gram, R.string.gram_abbreviation),
     KILOGRAM(Constants.KILOGRAM_TO_GRAM, R.string.kilogram, R.string.kilogram_abbreviation),

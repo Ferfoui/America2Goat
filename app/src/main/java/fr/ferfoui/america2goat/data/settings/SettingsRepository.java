@@ -9,15 +9,28 @@ import fr.ferfoui.america2goat.data.DataStorage;
 import fr.ferfoui.america2goat.unit.UnitManager;
 import fr.ferfoui.america2goat.unit.UnitStorage;
 
+/**
+ * Repository class for managing settings-related data.
+ */
 public class SettingsRepository {
     private final DataStorage dataStorage;
 
     private final MutableLiveData<String> unitTypePreferenceLiveData = new MutableLiveData<>();
 
+    /**
+     * Constructor for SettingsRepository.
+     *
+     * @param dataStorage the data storage instance
+     */
     public SettingsRepository(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
+    /**
+     * Get the LiveData for unit type preference.
+     *
+     * @return LiveData object containing the unit type preference
+     */
     public LiveData<String> getUnitTypePreferenceLiveData() {
         return unitTypePreferenceLiveData;
     }
@@ -42,7 +55,6 @@ public class SettingsRepository {
         dataStorage.setData(StorageKeys.UNIT_TYPE_STORAGE_KEY, unitType);
         unitTypePreferenceLiveData.setValue(unitType);
     }
-
 
     /**
      * Get the input unit preference, it is a number that represents the ordinal of the current input unit.
@@ -70,7 +82,6 @@ public class SettingsRepository {
         dataStorage.setData(key, unitPreferenceOrdinal);
     }
 
-
     /**
      * Get the output unit preference, it is a number that represents the ordinal of the current output unit.
      *
@@ -97,7 +108,6 @@ public class SettingsRepository {
         dataStorage.setData(key, unitPreferenceOrdinal);
     }
 
-
     /**
      * Get the round preference, it is a number that represents the number of decimal places to round the result to.
      * If the round preference is -1, the result will not be rounded.
@@ -117,7 +127,6 @@ public class SettingsRepository {
     public void setRoundPreference(int roundPreference) {
         dataStorage.setData(StorageKeys.ROUND_PREFERENCE_STORAGE_KEY, roundPreference);
     }
-
 
     /**
      * Get a stored preference or set a default value if the preference is not stored.
