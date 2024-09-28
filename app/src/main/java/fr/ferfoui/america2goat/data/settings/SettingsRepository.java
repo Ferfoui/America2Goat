@@ -6,16 +6,31 @@ import androidx.lifecycle.MutableLiveData;
 
 import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.data.DataStorage;
+import fr.ferfoui.america2goat.unit.UnitManager;
+import fr.ferfoui.america2goat.unit.UnitStorage;
 
+/**
+ * Repository class for managing settings-related data.
+ */
 public class SettingsRepository {
     private final DataStorage dataStorage;
 
     private final MutableLiveData<String> unitTypePreferenceLiveData = new MutableLiveData<>();
 
+    /**
+     * Constructor for SettingsRepository.
+     *
+     * @param dataStorage the data storage instance
+     */
     public SettingsRepository(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
+    /**
+     * Get the LiveData for unit type preference.
+     *
+     * @return LiveData object containing the unit type preference
+     */
     public LiveData<String> getUnitTypePreferenceLiveData() {
         return unitTypePreferenceLiveData;
     }
@@ -41,7 +56,6 @@ public class SettingsRepository {
         unitTypePreferenceLiveData.setValue(unitType);
     }
 
-
     /**
      * Get the input unit preference, it is a number that represents the ordinal of the current input unit.
      *
@@ -49,21 +63,10 @@ public class SettingsRepository {
      * @return the input unit preference
      */
     public int getInputUnitPreference(String unitType) {
-        Preferences.Key<Integer> key;
-        int defaultUnitOrdinal;
+        UnitStorage unitStorage = UnitManager.getUnitType(unitType).getUnitStorage();
 
-        switch (unitType) {
-            case Constants.DISTANCE_UNIT_TYPE_NAME:
-                key = StorageKeys.INPUT_DISTANCE_UNIT_STORAGE_KEY;
-                defaultUnitOrdinal = Constants.DEFAULT_INPUT_DISTANCE_UNIT.ordinal();
-                break;
-            case Constants.MASS_UNIT_TYPE_NAME:
-                key = StorageKeys.INPUT_MASS_UNIT_STORAGE_KEY;
-                defaultUnitOrdinal = Constants.DEFAULT_INPUT_MASS_UNIT.ordinal();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown unit type: " + unitType);
-        }
+        Preferences.Key<Integer> key = unitStorage.getInputUnitStorageKey();
+        int defaultUnitOrdinal = unitStorage.getDefaultInputUnit().ordinal();
 
         return getStoredPreferenceOrSetDefault(key, defaultUnitOrdinal);
     }
@@ -75,22 +78,9 @@ public class SettingsRepository {
      * @param unitPreferenceOrdinal the ordinal of the input unit to set
      */
     public void setInputUnitPreference(String unitType, int unitPreferenceOrdinal) {
-        Preferences.Key<Integer> key;
-
-        switch (unitType) {
-            case Constants.DISTANCE_UNIT_TYPE_NAME:
-                key = StorageKeys.INPUT_DISTANCE_UNIT_STORAGE_KEY;
-                break;
-            case Constants.MASS_UNIT_TYPE_NAME:
-                key = StorageKeys.INPUT_MASS_UNIT_STORAGE_KEY;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown unit type: " + unitType);
-        }
-
+        Preferences.Key<Integer> key = UnitManager.getUnitType(unitType).getUnitStorage().getInputUnitStorageKey();
         dataStorage.setData(key, unitPreferenceOrdinal);
     }
-
 
     /**
      * Get the output unit preference, it is a number that represents the ordinal of the current output unit.
@@ -99,21 +89,10 @@ public class SettingsRepository {
      * @return the output unit preference
      */
     public int getOutputUnitPreference(String unitType) {
-        Preferences.Key<Integer> key;
-        int defaultUnitOrdinal;
+        UnitStorage unitStorage = UnitManager.getUnitType(unitType).getUnitStorage();
 
-        switch (unitType) {
-            case Constants.DISTANCE_UNIT_TYPE_NAME:
-                key = StorageKeys.OUTPUT_DISTANCE_UNIT_STORAGE_KEY;
-                defaultUnitOrdinal = Constants.DEFAULT_OUTPUT_DISTANCE_UNIT.ordinal();
-                break;
-            case Constants.MASS_UNIT_TYPE_NAME:
-                key = StorageKeys.OUTPUT_MASS_UNIT_STORAGE_KEY;
-                defaultUnitOrdinal = Constants.DEFAULT_OUTPUT_MASS_UNIT.ordinal();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown unit type: " + getUnitTypePreference());
-        }
+        Preferences.Key<Integer> key = unitStorage.getOutputUnitStorageKey();
+        int defaultUnitOrdinal = unitStorage.getDefaultOutputUnit().ordinal();
 
         return getStoredPreferenceOrSetDefault(key, defaultUnitOrdinal);
     }
@@ -125,22 +104,9 @@ public class SettingsRepository {
      * @param unitPreferenceOrdinal the ordinal of the output unit to set
      */
     public void setOutputUnitPreference(String unitType, int unitPreferenceOrdinal) {
-        Preferences.Key<Integer> key;
-
-        switch (unitType) {
-            case Constants.DISTANCE_UNIT_TYPE_NAME:
-                key = StorageKeys.OUTPUT_DISTANCE_UNIT_STORAGE_KEY;
-                break;
-            case Constants.MASS_UNIT_TYPE_NAME:
-                key = StorageKeys.OUTPUT_MASS_UNIT_STORAGE_KEY;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown unit type: " + unitType);
-        }
-
+        Preferences.Key<Integer> key = UnitManager.getUnitType(unitType).getUnitStorage().getOutputUnitStorageKey();
         dataStorage.setData(key, unitPreferenceOrdinal);
     }
-
 
     /**
      * Get the round preference, it is a number that represents the number of decimal places to round the result to.
@@ -161,7 +127,6 @@ public class SettingsRepository {
     public void setRoundPreference(int roundPreference) {
         dataStorage.setData(StorageKeys.ROUND_PREFERENCE_STORAGE_KEY, roundPreference);
     }
-
 
     /**
      * Get a stored preference or set a default value if the preference is not stored.

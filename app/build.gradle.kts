@@ -10,8 +10,8 @@ android {
         applicationId = "fr.ferfoui.america2goat"
         minSdk = 27
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.0.2-alpha"
+        versionCode = 3
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

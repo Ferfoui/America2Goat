@@ -2,7 +2,7 @@
 <resources>
     <string name="title_home">首頁</string>
     <string name="title_dashboard">設置</string>
-    <string name="title_notifications">歷史</string>
+    <string name="title_app_info">應用</string>
     <string name="unit">單位</string>
     <string name="meter">米</string>
     <string name="centimeter">厘米</string>
@@ -23,4 +23,19 @@
     <string name="selected_unit_type">選擇的單位類型</string>
     <string name="distance_unit_name">長度</string>
     <string name="mass_unit_name">質量</string>
+    <string name="dev_info_title">開發者:</string>
+    <string name="app_info_text">America2Goat是一款用於將英制單位轉換為公制單位的應用。</string>
+    <string name="repository_text">代碼倉庫</string>
+    <string name="cubic_meter">立方米</string>
+    <string name="liter">升</string>
+    <string name="milliliter">毫升</string>
+    <string name="gallon">加侖</string>
+    <string name="quart">夸脫</string>
+    <string name="pint">品脫</string>
+    <string name="cup">杯</string>
+    <string name="fluid_ounce">液盎司</string>
+    <string name="volume_unit_name">體積</string>
+    <string name="kilometer">公里</string>
+    <string name="mile">英里</string>
+    <string name="yard">码</string>
 </resources>

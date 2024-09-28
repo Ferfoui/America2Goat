@@ -2,7 +2,7 @@
 <resources>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Paramètres</string>
-    <string name="title_notifications">Historique</string>
+    <string name="title_app_info">App</string>
     <string name="unit">unité</string>
     <string name="meter">mètre</string>
     <string name="centimeter">centimètre</string>
@@ -23,4 +23,19 @@
     <string name="selected_unit_type">Type d\'unité selectionné</string>
     <string name="distance_unit_name">longueur</string>
     <string name="mass_unit_name">masse</string>
+    <string name="dev_info_title">Developpeur :</string>
+    <string name="app_info_text">America2Goat est une application utilisée pour convertir les unités du système impérial en unité du système métrique.</string>
+    <string name="repository_text">Repository</string>
+    <string name="cubic_meter">mètre cube</string>
+    <string name="liter">litre</string>
+    <string name="milliliter">millilitre</string>
+    <string name="gallon">gallon</string>
+    <string name="quart">quart</string>
+    <string name="pint">pinte</string>
+    <string name="cup">tasse</string>
+    <string name="fluid_ounce">once liquide</string>
+    <string name="volume_unit_name">volume</string>
+    <string name="kilometer">kilomètre</string>
+    <string name="mile">mile</string>
+    <string name="yard">yard</string>
 </resources>

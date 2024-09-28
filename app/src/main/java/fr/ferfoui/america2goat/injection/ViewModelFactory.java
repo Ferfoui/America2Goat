@@ -15,13 +15,28 @@ import fr.ferfoui.america2goat.data.settings.SettingsRepository;
 import fr.ferfoui.america2goat.ui.dashboard.DashboardViewModel;
 import fr.ferfoui.america2goat.ui.home.HomeViewModel;
 
+/**
+ * Factory class for creating ViewModel instances.
+ * Implements the ViewModelProvider.Factory interface.
+ */
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
+    // Singleton instance of ViewModelFactory
     private static volatile ViewModelFactory factory;
+
+    // Repository for handling conversion-related data
     private final ConverterRepository converterRepository;
+    // Repository for handling settings-related data
     private final SettingsRepository settingsRepository;
+    // Maximum value for the round seek bar in the dashboard
     private final int roundSeekBarMax;
 
+    /**
+     * Private constructor to prevent direct instantiation.
+     * Initializes the repositories and other dependencies.
+     *
+     * @param context The application context.
+     */
     private ViewModelFactory(Context context) {
         Converter converter = new Converter();
         AppSettings appSettings = AppSettings.getInstance(context);
@@ -31,6 +46,13 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         this.settingsRepository = new SettingsRepository(appSettings);
     }
 
+    /**
+     * Returns the singleton instance of ViewModelFactory.
+     * Uses double-checked locking to ensure thread safety.
+     *
+     * @param context The application context.
+     * @return The singleton instance of ViewModelFactory.
+     */
     public static ViewModelFactory getInstance(Context context) {
         if (factory == null) {
             synchronized (ViewModelFactory.class) {
@@ -42,6 +64,14 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         return factory;
     }
 
+    /**
+     * Creates a new instance of the specified ViewModel class.
+     *
+     * @param modelClass The class of the ViewModel to create.
+     * @param <T>        The type of the ViewModel.
+     * @return A new instance of the specified ViewModel class.
+     * @throws IllegalArgumentException if the ViewModel class is unknown.
+     */
     @Override
     @NotNull
     public <T extends ViewModel> T create(Class<T> modelClass) {

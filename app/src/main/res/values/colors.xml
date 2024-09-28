@@ -19,4 +19,6 @@
     <color name="dark_blue_for_light_mode">#FF324358</color>
     <color name="light_purple_for_light_mode">#FF9A97C4</color>
     <color name="dark_purple_for_light_mode">#FF5B4F8C</color>
+
+    <color name="link_blue">#FF0000FF</color>
 </resources>

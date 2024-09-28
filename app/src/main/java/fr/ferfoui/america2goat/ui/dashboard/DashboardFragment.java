@@ -17,11 +17,19 @@ import fr.ferfoui.america2goat.databinding.FragmentDashboardBinding;
 import fr.ferfoui.america2goat.injection.ViewModelFactory;
 import fr.ferfoui.america2goat.unit.UnitSpinnersConfiguration;
 
+/**
+ * Fragment representing the dashboard screen.
+ */
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel viewModel;
     private FragmentDashboardBinding binding;
 
+    /**
+     * Called to do initial creation of a fragment.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +37,18 @@ public class DashboardFragment extends Fragment {
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(DashboardViewModel.class);
     }
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to. The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +58,13 @@ public class DashboardFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view.
+     *
+     * @param view               The View returned by onCreateView.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,12 +73,18 @@ public class DashboardFragment extends Fragment {
         configureSeekBar();
     }
 
+    /**
+     * Called when the view previously created by onCreateView has been detached from the fragment.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
+    /**
+     * Configures the spinners in the dashboard.
+     */
     private void configureSpinners() {
         Spinner unitTypeSpinner = binding.unitTypeSpinner;
         Spinner inputUnitSpinner = binding.inputUnitPreferenceSpinner;
@@ -75,6 +108,9 @@ public class DashboardFragment extends Fragment {
         });
     }
 
+    /**
+     * Configures the seek bar in the dashboard.
+     */
     private void configureSeekBar() {
         SeekBar roundPreferenceSeekBar = binding.roundPreferenceSeekBar;
 
@@ -85,6 +121,11 @@ public class DashboardFragment extends Fragment {
         setRoundPreferenceText(barPosition);
     }
 
+    /**
+     * Changes the unit type preference.
+     *
+     * @param unitType The new unit type.
+     */
     private void changeUnitType(String unitType) {
         viewModel.setUnitTypePreference(unitType);
 
@@ -93,6 +134,11 @@ public class DashboardFragment extends Fragment {
                 viewModel.getCurrentUnits(), createOnUnitSelectedListener());
     }
 
+    /**
+     * Creates a listener for unit selection changes.
+     *
+     * @return The listener for unit selection changes.
+     */
     private UnitSpinnersConfiguration.OnUnitSelectedListener createOnUnitSelectedListener() {
         return (unitOrdinal, isInput) -> {
             if (isInput) {
@@ -103,6 +149,11 @@ public class DashboardFragment extends Fragment {
         };
     }
 
+    /**
+     * Creates a listener for seek bar changes.
+     *
+     * @return The listener for seek bar changes.
+     */
     private SeekBar.OnSeekBarChangeListener createSeekBarListener() {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -114,16 +165,21 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                // No action needed
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                // No action needed
             }
         };
     }
 
+    /**
+     * Sets the text for the round preference based on the seek bar progress.
+     *
+     * @param progress The current progress of the seek bar.
+     */
     private void setRoundPreferenceText(int progress) {
         String roundPreferenceText;
         if (progress >= getResources().getInteger(R.integer.round_seek_bar_max)) {

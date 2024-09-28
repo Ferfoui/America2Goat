@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.appinfo.AppInfoFragment">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/preferences_layout_margin">
+
+        <LinearLayout
+                android:id="@+id/app_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/preferences_layout_margin">
+
+            <TextView
+                    android:id="@+id/app_presentation_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_text"
+                    android:textSize="@dimen/default_text_size"
+                    android:gravity="center"
+                    android:paddingHorizontal="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/dev_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/preferences_layout_margin">
+
+            <TextView
+                    android:id="@+id/dev_where_to_find_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/where_to_find_title"
+                    android:textSize="@dimen/default_text_size"
+                    android:layout_marginBottom="@dimen/preferences_text_bottom_margin" />
+
+            <TextView
+                    android:id="@+id/dev_github_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_text_size_smaller"
+                    android:text="@string/repository_text"
+                    android:textColor="?colorSecondary"
+                    android:clickable="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
