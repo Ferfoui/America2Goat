@@ -22,14 +22,27 @@ Your device will ask you to allow the installation of the app, click on `Install
 #### Length units
 - Inches
 - Feet
+- Yards
+- Miles
 - Centimeters
 - Meters
+- Kilometers
 
 #### Mass units
 - Ounces
 - Pounds
 - Grams
 - Kilograms
+
+#### Volume units
+- Fluid ounces
+- Cups
+- Pints
+- Quarts
+- Gallons
+- Milliliters
+- Liters
+- Cubic meters
 
 
 ## Supported languages
