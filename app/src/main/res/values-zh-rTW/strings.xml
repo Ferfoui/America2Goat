@@ -26,4 +26,13 @@
     <string name="dev_info_title">開發者:</string>
     <string name="app_info_text">America2Goat是一款用於將英制單位轉換為公制單位的應用。</string>
     <string name="repository_text">代碼倉庫</string>
+    <string name="cubic_meter">立方米</string>
+    <string name="liter">升</string>
+    <string name="milliliter">毫升</string>
+    <string name="gallon">加侖</string>
+    <string name="quart">夸脫</string>
+    <string name="pint">品脫</string>
+    <string name="cup">杯</string>
+    <string name="fluid_ounce">液盎司</string>
+    <string name="volume_unit_name">體積</string>
 </resources>

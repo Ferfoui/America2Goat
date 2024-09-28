@@ -6,11 +6,11 @@ package fr.ferfoui.america2goat.unit;
 public interface Unit {
 
     /**
-     * Gets the weight of the unit compared to the base unit.
+     * Gets the factor of the unit to convert it to the base unit.
      *
-     * @return the weight of the unit
+     * @return the factor of the unit
      */
-    double getWeight();
+    double getFactor();
 
     /**
      * Gets the resource id of the unit name.

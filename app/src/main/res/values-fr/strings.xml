@@ -26,4 +26,13 @@
     <string name="dev_info_title">Developpeur :</string>
     <string name="app_info_text">America2Goat est une application utilisée pour convertir les unités du système impérial en unité du système métrique.</string>
     <string name="repository_text">Repository</string>
+    <string name="cubic_meter">mètre cube</string>
+    <string name="liter">litre</string>
+    <string name="milliliter">millilitre</string>
+    <string name="gallon">gallon</string>
+    <string name="quart">quart</string>
+    <string name="pint">pinte</string>
+    <string name="cup">tasse</string>
+    <string name="fluid_ounce">once liquide</string>
+    <string name="volume_unit_name">volume</string>
 </resources>

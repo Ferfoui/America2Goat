@@ -13,11 +13,12 @@ import fr.ferfoui.america2goat.R;
  */
 public class UnitManager {
 
-    private static final HashMap<String, UnitType> unitTypes = new HashMap<>(2);
+    private static final HashMap<String, UnitType> unitTypes = new HashMap<>(3);
 
     static {
-        putUnitType(Constants.DISTANCE_UNIT_TYPE_NAME, R.string.distance_unit_name, DistanceUnit.values(), Constants.DEFAULT_DISTANCE_UNIT_STORAGE);
-        putUnitType(Constants.MASS_UNIT_TYPE_NAME, R.string.mass_unit_name, MassUnit.values(), Constants.DEFAULT_MASS_UNIT_STORAGE);
+        putUnitType(Constants.DISTANCE_UNIT_TYPE_NAME, R.string.distance_unit_name, DistanceUnit.values(), Constants.DISTANCE_UNIT_STORAGE);
+        putUnitType(Constants.MASS_UNIT_TYPE_NAME, R.string.mass_unit_name, MassUnit.values(), Constants.MASS_UNIT_STORAGE);
+        putUnitType(Constants.VOLUME_UNIT_TYPE_NAME, R.string.volume_unit_name, VolumeUnit.values(), Constants.VOLUME_UNIT_STORAGE);
     }
 
     /**

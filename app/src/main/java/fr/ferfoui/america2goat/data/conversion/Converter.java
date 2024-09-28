@@ -36,7 +36,7 @@ public class Converter {
      * @return the converted value
      */
     public double convert(double value) {
-        return value * inputUnit.getWeight() / outputUnit.getWeight();
+        return value * inputUnit.getFactor() / outputUnit.getFactor();
     }
 
     /**

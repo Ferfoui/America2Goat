@@ -14,6 +14,14 @@
     <string name="kilogram_abbreviation" translatable="false">kg</string>
     <string name="pound_abbreviation" translatable="false">lb</string>
     <string name="ounce_abbreviation" translatable="false">oz</string>
+    <string name="cubic_meter_abbreviation" translatable="false">m³</string>
+    <string name="liter_abbreviation" translatable="false">L</string>
+    <string name="milliliter_abbreviation" translatable="false">mL</string>
+    <string name="gallon_abbreviation" translatable="false">gal</string>
+    <string name="quart_abbreviation" translatable="false">qt</string>
+    <string name="pint_abbreviation" translatable="false">pt</string>
+    <string name="cup_abbreviation" translatable="false">cup</string>
+    <string name="fluid_ounce_abbreviation" translatable="false">fl oz</string>
     <string name="meter">meter</string>
     <string name="centimeter">centimeter</string>
     <string name="inch">inch</string>
@@ -22,6 +30,14 @@
     <string name="kilogram">kilogram</string>
     <string name="pound">pound</string>
     <string name="ounce">ounce</string>
+    <string name="cubic_meter">cubic meter</string>
+    <string name="liter">liter</string>
+    <string name="milliliter">milliliter</string>
+    <string name="gallon">gallon</string>
+    <string name="quart">quart</string>
+    <string name="pint">pint</string>
+    <string name="cup">cup</string>
+    <string name="fluid_ounce">fluid ounce</string>
     <string name="unit_to_unit">unit to unit</string>
     <string name="conversion_word">to</string>
     <string name="input_unit_preference">Default input unit:</string>
@@ -33,6 +49,7 @@
     <string name="selected_unit_type">Selected unit type</string>
     <string name="distance_unit_name">length</string>
     <string name="mass_unit_name">mass</string>
+    <string name="volume_unit_name">volume</string>
     <string name="dev_info_title">Developer :</string>
     <string name="app_info_text">America2Goat is an Android app to convert imperial to metric system</string>
     <string name="where_to_find_title" translatable="false">GitHub :</string>

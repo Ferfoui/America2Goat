@@ -12,19 +12,19 @@ public enum DistanceUnit implements Unit {
     INCH(Constants.INCH_TO_METER, R.string.inch, R.string.inch_abbreviation),
     FOOT(Constants.FEET_TO_METER, R.string.foot, R.string.foot_abbreviation);
 
-    private final double weight;
+    private final double factor;
     private final int resourceNameId;
     private final int resourceAbbreviationId;
 
-    DistanceUnit(double weight, int resourceNameId, int resourceAbbreviationId) {
-        this.weight = weight;
+    DistanceUnit(double factor, int resourceNameId, int resourceAbbreviationId) {
+        this.factor = factor;
         this.resourceNameId = resourceNameId;
         this.resourceAbbreviationId = resourceAbbreviationId;
     }
 
     @Override
-    public double getWeight() {
-        return weight;
+    public double getFactor() {
+        return factor;
     }
 
     @Override

@@ -12,19 +12,19 @@ public enum MassUnit implements Unit {
     POUND(Constants.POUND_TO_GRAM, R.string.pound, R.string.pound_abbreviation),
     OUNCE(Constants.OUNCE_TO_GRAM, R.string.ounce, R.string.ounce_abbreviation);
 
-    private final double weight;
+    private final double factor;
     private final int resourceNameId;
     private final int resourceAbbreviationId;
 
-    MassUnit(double weight, int resourceNameId, int resourceAbbreviationId) {
-        this.weight = weight;
+    MassUnit(double factor, int resourceNameId, int resourceAbbreviationId) {
+        this.factor = factor;
         this.resourceNameId = resourceNameId;
         this.resourceAbbreviationId = resourceAbbreviationId;
     }
 
     @Override
-    public double getWeight() {
-        return weight;
+    public double getFactor() {
+        return factor;
     }
 
     @Override
