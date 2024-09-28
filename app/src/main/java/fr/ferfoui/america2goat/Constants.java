@@ -18,13 +18,16 @@ public class Constants {
 
 
     // Conversion factors
+    public static final double KILOMETER_TO_METER = 1000d;
+    public static final double CM_TO_METER = 0.01d;
+    public static final double MILE_TO_METER = 1609.344d;
+    public static final double YARD_TO_METER = 0.9144d;
     public static final double INCH_TO_METER = 0.0254d;
     public static final double FEET_TO_METER = 12 * INCH_TO_METER;
-    public static final double CM_TO_METER = 0.01d;
 
+    public static final double KILOGRAM_TO_GRAM = 1000d;
     public static final double POUND_TO_GRAM = 453.59237d;
     public static final double OUNCE_TO_GRAM = POUND_TO_GRAM / 16d;
-    public static final double KILOGRAM_TO_GRAM = 1000d;
 
     public static final double CUBIC_METER_TO_LITER = 1000d;
     public static final double MILLILITER_TO_LITER = 0.001d;

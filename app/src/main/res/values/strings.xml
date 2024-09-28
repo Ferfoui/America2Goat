@@ -6,12 +6,15 @@
     <string name="title_app_info">App</string>
     <string name="conversion_output" translatable="false">0</string>
     <string name="unit">unit</string>
+    <string name="kilometer_abbreviation" translatable="false">km</string>
     <string name="meter_abbreviation" translatable="false">m</string>
     <string name="centimeter_abbreviation" translatable="false">cm</string>
-    <string name="inch_abbreviation" translatable="false">in</string>
+    <string name="mile_abbreviation" translatable="false">mi</string>
+    <string name="yard_abbreviation" translatable="false">yd</string>
     <string name="foot_abbreviation" translatable="false">ft</string>
-    <string name="gram_abbreviation" translatable="false">g</string>
+    <string name="inch_abbreviation" translatable="false">in</string>
     <string name="kilogram_abbreviation" translatable="false">kg</string>
+    <string name="gram_abbreviation" translatable="false">g</string>
     <string name="pound_abbreviation" translatable="false">lb</string>
     <string name="ounce_abbreviation" translatable="false">oz</string>
     <string name="cubic_meter_abbreviation" translatable="false">m³</string>
@@ -22,12 +25,15 @@
     <string name="pint_abbreviation" translatable="false">pt</string>
     <string name="cup_abbreviation" translatable="false">cup</string>
     <string name="fluid_ounce_abbreviation" translatable="false">fl oz</string>
+    <string name="kilometer">kilometer</string>
     <string name="meter">meter</string>
     <string name="centimeter">centimeter</string>
+    <string name="mile">mile</string>
+    <string name="yard">yard</string>
     <string name="inch">inch</string>
     <string name="foot">foot</string>
-    <string name="gram">gram</string>
     <string name="kilogram">kilogram</string>
+    <string name="gram">gram</string>
     <string name="pound">pound</string>
     <string name="ounce">ounce</string>
     <string name="cubic_meter">cubic meter</string>

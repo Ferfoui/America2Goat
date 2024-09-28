@@ -35,4 +35,7 @@
     <string name="cup">tasse</string>
     <string name="fluid_ounce">once liquide</string>
     <string name="volume_unit_name">volume</string>
+    <string name="kilometer">kilomètre</string>
+    <string name="mile">mile</string>
+    <string name="yard">yard</string>
 </resources>

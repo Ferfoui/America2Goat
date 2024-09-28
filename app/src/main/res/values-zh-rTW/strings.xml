@@ -35,4 +35,7 @@
     <string name="cup">杯</string>
     <string name="fluid_ounce">液盎司</string>
     <string name="volume_unit_name">體積</string>
+    <string name="kilometer">公里</string>
+    <string name="mile">英里</string>
+    <string name="yard">码</string>
 </resources>
