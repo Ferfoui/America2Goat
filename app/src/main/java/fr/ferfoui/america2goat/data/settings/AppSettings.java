@@ -14,6 +14,7 @@ import io.reactivex.Single;
 /**
  * Singleton class for managing application settings using RxDataStore.
  */
+@Deprecated(forRemoval = true)
 public class AppSettings implements DataStorage {
 
     private static AppSettings instance;
