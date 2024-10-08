@@ -1,6 +1,7 @@
 [versions]
 agp = "8.7.0"
 googleServices = "4.4.2"
+kotlin = "1.9.24"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -34,5 +35,6 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
