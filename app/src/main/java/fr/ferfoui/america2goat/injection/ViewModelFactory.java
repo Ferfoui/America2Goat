@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.data.conversion.Converter;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
-import fr.ferfoui.america2goat.data.settings.AppSettings;
+import fr.ferfoui.america2goat.data.settings.AppStorage;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
 import fr.ferfoui.america2goat.ui.dashboard.DashboardViewModel;
 import fr.ferfoui.america2goat.ui.home.HomeViewModel;
@@ -39,7 +39,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      */
     private ViewModelFactory(Context context) {
         Converter converter = new Converter();
-        AppSettings appSettings = AppSettings.getInstance(context);
+        AppStorage appSettings = AppStorage.Companion.getInstance(context);
         roundSeekBarMax = context.getResources().getInteger(R.integer.round_seek_bar_max);
 
         this.converterRepository = new ConverterRepository(converter);
