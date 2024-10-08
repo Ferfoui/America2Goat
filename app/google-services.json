@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160853660389",
+    "project_id": "america2goat",
+    "storage_bucket": "america2goat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160853660389:android:3fb7b10cca2bf5bda4ba0c",
+        "android_client_info": {
+          "package_name": "fr.ferfoui.america2goat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNMYeJ70_WC-2E0XnOeP31_yxIZu_XRxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
