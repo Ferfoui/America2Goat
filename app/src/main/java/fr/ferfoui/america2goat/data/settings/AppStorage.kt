@@ -91,4 +91,13 @@ class AppStorage private constructor(private val context: Context) : DataStorage
         return isAvailable
     }
 
+    /**
+     * Clears all data stored in the DataStore.
+     */
+    suspend fun clearData() {
+        context.dataStore.edit { settings ->
+            settings.clear()
+        }
+    }
+
 }
