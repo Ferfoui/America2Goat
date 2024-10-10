@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import fr.ferfoui.america2goat.Constants;
-import fr.ferfoui.america2goat.data.DataStorage;
+import fr.ferfoui.america2goat.data.store.DataStorage;
 import fr.ferfoui.america2goat.unit.UnitManager;
 import fr.ferfoui.america2goat.unit.UnitStorage;
 

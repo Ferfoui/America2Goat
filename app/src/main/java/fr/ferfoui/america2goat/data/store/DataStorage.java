@@ -1,4 +1,4 @@
-package fr.ferfoui.america2goat.data;
+package fr.ferfoui.america2goat.data.store;
 
 import androidx.datastore.preferences.core.Preferences;
 

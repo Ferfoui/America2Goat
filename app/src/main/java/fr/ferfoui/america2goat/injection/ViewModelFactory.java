@@ -10,8 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.data.conversion.Converter;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
-import fr.ferfoui.america2goat.data.settings.AppStorage;
+import fr.ferfoui.america2goat.data.store.AppStorage;
 import fr.ferfoui.america2goat.data.settings.SettingsRepository;
+import fr.ferfoui.america2goat.data.store.AppStorageAdapter;
+import fr.ferfoui.america2goat.data.store.DataStorage;
 import fr.ferfoui.america2goat.ui.dashboard.DashboardViewModel;
 import fr.ferfoui.america2goat.ui.home.HomeViewModel;
 
@@ -39,11 +41,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      */
     private ViewModelFactory(Context context) {
         Converter converter = new Converter();
-        AppStorage appSettings = AppStorage.Companion.getInstance(context);
+        DataStorage dataStorage = new AppStorageAdapter(AppStorage.Companion.getInstance(context));
         roundSeekBarMax = context.getResources().getInteger(R.integer.round_seek_bar_max);
 
         this.converterRepository = new ConverterRepository(converter);
-        this.settingsRepository = new SettingsRepository(appSettings);
+        this.settingsRepository = new SettingsRepository(dataStorage);
     }
 
     /**
@@ -74,6 +76,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      */
     @Override
     @NotNull
+    @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(HomeViewModel.class)) {
             return (T) new HomeViewModel(converterRepository, settingsRepository);
