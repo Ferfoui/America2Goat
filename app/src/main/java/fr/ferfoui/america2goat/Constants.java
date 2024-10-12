@@ -11,6 +11,10 @@ import fr.ferfoui.america2goat.unit.VolumeUnit;
  */
 public class Constants {
 
+    // Datastore name
+    public static final String DATASTORE_NAME = "settings";
+
+
     // Unit type names
     public static final String DISTANCE_UNIT_TYPE_NAME = "distance_unit";
     public static final String MASS_UNIT_TYPE_NAME = "mass_unit";

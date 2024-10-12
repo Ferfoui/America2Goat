@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import fr.ferfoui.america2goat.Constants
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -12,8 +13,11 @@ import kotlinx.coroutines.flow.map
  * A class that handles data storage using DataStore.
  * This class ensures that only one instance of AppStorage is created.
  */
-class AppStorage private constructor(private val context: Context) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+class AppStorage private constructor(
+    private val context: Context,
+    storageName: String = Constants.DATASTORE_NAME
+) {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = storageName)
 
     // Make sure that the AppStorage can only be initialized once
     companion object {
@@ -27,12 +31,13 @@ class AppStorage private constructor(private val context: Context) {
          * @param context The application context.
          * @return The single instance of AppStorage.
          */
-        fun getInstance(context: Context) = if (isInitialized) {
-            throw IllegalStateException("AppStorage has already been initialized")
-        } else {
-            isInitialized = true
-            AppStorage(context)
-        }
+        fun getInstance(context: Context, storageName: String = Constants.DATASTORE_NAME) =
+            if (isInitialized) {
+                throw IllegalStateException("AppStorage has already been initialized")
+            } else {
+                isInitialized = true
+                AppStorage(context, storageName)
+            }
     }
 
     /**
