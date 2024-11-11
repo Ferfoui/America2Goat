@@ -42,7 +42,6 @@ class AppStorage(
      * @param T The type of the value to be retrieved.
      * @param storageKey The key associated with the value.
      * @return The value associated with the key.
-     * @throws IllegalStateException if no value is found for the key.
      */
     fun <T> getData(storageKey: Preferences.Key<T>): Flow<T?> {
         return dataStore.data
