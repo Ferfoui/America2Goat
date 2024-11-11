@@ -137,11 +137,12 @@ public class SettingsRepository {
      * @return the stored preference or the default value
      */
     private <T> T getStoredPreferenceOrSetDefault(Preferences.Key<T> key, T defaultValue) {
-        if (dataStorage.isDataAvailable(key)) {
-            return dataStorage.getData(key);
+        T value = dataStorage.getData(key);
+        if (value == null) {
+            dataStorage.setData(key, defaultValue);
+            return defaultValue;
         }
-        dataStorage.setData(key, defaultValue);
 
-        return defaultValue;
+        return value;
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.jetbrains.annotations.NotNull;
 
+import fr.ferfoui.america2goat.Constants;
 import fr.ferfoui.america2goat.R;
 import fr.ferfoui.america2goat.data.conversion.Converter;
 import fr.ferfoui.america2goat.data.conversion.ConverterRepository;
@@ -41,7 +42,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      */
     private ViewModelFactory(Context context) {
         Converter converter = new Converter();
-        DataStorage dataStorage = new AppStorageAdapter(AppStorage.Companion.getInstance(context));
+        DataStorage dataStorage = new AppStorageAdapter(new AppStorage(context, Constants.DATASTORE_NAME));
         roundSeekBarMax = context.getResources().getInteger(R.integer.round_seek_bar_max);
 
         this.converterRepository = new ConverterRepository(converter);

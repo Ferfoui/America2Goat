@@ -1,10 +1,12 @@
 package fr.ferfoui.america2goat.data.store
 
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertThrows
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -33,8 +35,12 @@ class AppStorageTest {
         }
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        staticAppStorage = AppStorage.getInstance(context)
+        staticAppStorage = AppStorage(context, "test_storage")
         return staticAppStorage!!
+    }
+
+    private fun isDataExists(appStorage: AppStorage, key: Preferences.Key<Int>): Boolean {
+        return runBlocking { appStorage.getData(key).first() != null }
     }
 
     /**
@@ -53,14 +59,14 @@ class AppStorageTest {
 
             assertTrue(
                 "The value is not stored in ${key1.name} or ${key2.name}",
-                appStorage.isDataAvailable(key1) && appStorage.isDataAvailable(key2)
+                isDataExists(appStorage, key1) && isDataExists(appStorage, key2)
             )
 
             runBlocking { appStorage.clearData() }
 
             assertFalse(
                 "The value is still stored in ${key1.name} or ${key2.name} after clearing the data",
-                appStorage.isDataAvailable(key1) || appStorage.isDataAvailable(key2)
+                isDataExists(appStorage, key1) || isDataExists(appStorage, key2)
             )
         }
     }
@@ -76,19 +82,19 @@ class AppStorageTest {
             val key = KEY_1
             assertFalse(
                 "A value seems to be stored in ${key.name} while it should not",
-                appStorage.isDataAvailable(key)
+                isDataExists(appStorage, key)
             )
 
             appStorage.setData(key, 42)
             assertTrue(
                 "The value is not available in ${key.name} while it should",
-                appStorage.isDataAvailable(key)
+                isDataExists(appStorage, key)
             )
 
             val anotherKey = KEY_2
             assertFalse(
                 "A value seems to be stored in ${anotherKey.name} while it should not",
-                appStorage.isDataAvailable(anotherKey)
+                isDataExists(appStorage, anotherKey)
             )
         }
     }
@@ -105,16 +111,16 @@ class AppStorageTest {
             val value = 42
 
             assertFalse(
-                "A value is already assigned to ${key.name}", appStorage.isDataAvailable(key)
+                "A value is already assigned to ${key.name}", isDataExists(appStorage, key)
             )
 
             appStorage.setData(key, value)
 
             assertTrue(
-                "The value $value is not stored in ${key.name}", appStorage.isDataAvailable(key)
+                "The value $value is not stored in ${key.name}", isDataExists(appStorage, key)
             )
 
-            val storedValue = appStorage.getData(key)
+            val storedValue = appStorage.getData(key).first()
 
             assertTrue(
                 "The stored value $storedValue is different from the expected value $value",
@@ -124,15 +130,13 @@ class AppStorageTest {
             val anotherKey = KEY_2
             assertFalse(
                 "A value is assigned to ${anotherKey.name} while it should not",
-                appStorage.isDataAvailable(anotherKey)
+                isDataExists(appStorage, anotherKey)
             )
 
-            assertThrows(
-                "An exception should be thrown when trying to get a value that does not exist",
-                IllegalStateException::class.java
-            ) {
-                runBlocking { appStorage.getData(anotherKey) }
-            }
+            assertNull(
+                "A null value is not returned when trying to get a value that does not exist",
+                appStorage.getData(anotherKey).first()
+            )
         }
     }
 
@@ -151,7 +155,7 @@ class AppStorageTest {
 
             assertFalse(
                 "A value is already assigned to ${key1.name} or ${key2.name}",
-                appStorage.isDataAvailable(key1) || appStorage.isDataAvailable(key2)
+                isDataExists(appStorage, key1) || isDataExists(appStorage, key2)
             )
 
             appStorage.setData(key1, value1)
@@ -159,11 +163,11 @@ class AppStorageTest {
 
             assertTrue(
                 "The value $value1 is not stored in ${key1.name} or $value2 is not stored in ${key2.name}",
-                appStorage.isDataAvailable(key1) && appStorage.isDataAvailable(key2)
+                isDataExists(appStorage, key1) && isDataExists(appStorage, key2)
             )
 
-            val storedValue1 = appStorage.getData(key1)
-            val storedValue2 = appStorage.getData(key2)
+            val storedValue1 = appStorage.getData(key1).first()
+            val storedValue2 = appStorage.getData(key2).first()
 
             assertTrue(
                 "The stored value $storedValue1 is different from the expected value $value1",
@@ -177,15 +181,13 @@ class AppStorageTest {
             val anotherKey = KEY_3
             assertFalse(
                 "A value is assigned to ${anotherKey.name} while it should not",
-                appStorage.isDataAvailable(anotherKey)
+                isDataExists(appStorage, anotherKey)
             )
 
-            assertThrows(
-                "An exception should be thrown when trying to get a value that does not exist",
-                IllegalStateException::class.java
-            ) {
-                runBlocking { appStorage.getData(anotherKey) }
-            }
+            assertNull(
+                "A null value is not returned when trying to get a value that does not exist",
+                appStorage.getData(anotherKey).first()
+            )
         }
     }
 }

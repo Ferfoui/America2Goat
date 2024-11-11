@@ -3,6 +3,7 @@ package fr.ferfoui.america2goat.data.store
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -29,23 +30,12 @@ class AppStorageAdapter(private val appStorage: AppStorage) : DataStorage {
      *
      * @param T The type of the data.
      * @param storageKey The key for the data.
-     * @return The retrieved data.
+     * @return The retrieved data or null if not found.
      */
-    override fun <T> getData(storageKey: Preferences.Key<T>): T {
+    override fun <T> getData(storageKey: Preferences.Key<T>): T? {
         return runBlocking {
-            return@runBlocking appStorage.getData(storageKey)
+            return@runBlocking appStorage.getData(storageKey).first()
         }
     }
 
-    /**
-     * Checks if data is available in the storage.
-     *
-     * @param storageKey The key for the data.
-     * @return True if data is available, false otherwise.
-     */
-    override fun isDataAvailable(storageKey: Preferences.Key<*>): Boolean {
-        return runBlocking {
-            return@runBlocking appStorage.isDataAvailable(storageKey)
-        }
-    }
 }
